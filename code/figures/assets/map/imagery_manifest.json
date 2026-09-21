@@ -1,0 +1,188 @@
+{
+  "source": "Sentinel-2 L2A COG, Earth Search/AWS",
+  "acquisition_date": "2023-05-14",
+  "inputs": [
+    {
+      "id": "S2B_48SUE_20230514_0_L2A",
+      "datetime": "2023-05-14T03:58:26.772000Z",
+      "scene_cloud_cover_percent": 0.182375,
+      "visual_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/UE/2023/5/S2B_48SUE_20230514_0_L2A/TCI.tif",
+      "scl_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/UE/2023/5/S2B_48SUE_20230514_0_L2A/SCL.tif",
+      "crs": "EPSG:32648",
+      "source_resolution_m": [
+        10.0,
+        10.0
+      ],
+      "bounds": [
+        300000.0,
+        3890220.0,
+        409800.0,
+        4000020.0
+      ],
+      "colour_interpretation": [
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "id": "S2B_48SVE_20230514_0_L2A",
+      "datetime": "2023-05-14T03:58:23.177000Z",
+      "scene_cloud_cover_percent": 0.238964,
+      "visual_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/VE/2023/5/S2B_48SVE_20230514_0_L2A/TCI.tif",
+      "scl_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/VE/2023/5/S2B_48SVE_20230514_0_L2A/SCL.tif",
+      "crs": "EPSG:32648",
+      "source_resolution_m": [
+        10.0,
+        10.0
+      ],
+      "bounds": [
+        399960.0,
+        3890220.0,
+        509760.0,
+        4000020.0
+      ],
+      "colour_interpretation": [
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "id": "S2B_48SUF_20230514_0_L2A",
+      "datetime": "2023-05-14T03:58:12.394000Z",
+      "scene_cloud_cover_percent": 2.44525,
+      "visual_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/UF/2023/5/S2B_48SUF_20230514_0_L2A/TCI.tif",
+      "scl_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/UF/2023/5/S2B_48SUF_20230514_0_L2A/SCL.tif",
+      "crs": "EPSG:32648",
+      "source_resolution_m": [
+        10.0,
+        10.0
+      ],
+      "bounds": [
+        300000.0,
+        3990240.0,
+        409800.0,
+        4100040.0
+      ],
+      "colour_interpretation": [
+        "3",
+        "4",
+        "5"
+      ]
+    },
+    {
+      "id": "S2B_48SVF_20230514_0_L2A",
+      "datetime": "2023-05-14T03:58:08.890000Z",
+      "scene_cloud_cover_percent": 0.000942,
+      "visual_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/VF/2023/5/S2B_48SVF_20230514_0_L2A/TCI.tif",
+      "scl_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/48/S/VF/2023/5/S2B_48SVF_20230514_0_L2A/SCL.tif",
+      "crs": "EPSG:32648",
+      "source_resolution_m": [
+        10.0,
+        10.0
+      ],
+      "bounds": [
+        399960.0,
+        3990240.0,
+        509760.0,
+        4100040.0
+      ],
+      "colour_interpretation": [
+        "3",
+        "4",
+        "5"
+      ]
+    }
+  ],
+  "outputs": {
+    "a": {
+      "file": "imagery_a.tif",
+      "sha256": "7bc9764788fb27722437b8a6f01996f6517be9539431f21bf7845177eb5f227a",
+      "resolution_m": 120,
+      "bounds_projected": [
+        324306.55986584467,
+        3916891.3883341737,
+        459762.28405303473,
+        4079475.4194230502
+      ],
+      "raster_shape": [
+        3,
+        1355,
+        1129
+      ],
+      "scl_histogram": {
+        "0": 14901,
+        "2": 20267,
+        "3": 26325,
+        "4": 1985891,
+        "5": 52604163,
+        "6": 337278,
+        "7": 19412,
+        "8": 22955,
+        "9": 26314,
+        "10": 187,
+        "11": 24
+      },
+      "nodata_fraction": 0.00027064325969055345,
+      "cloud_fraction": 0.000898257368717268,
+      "cloud_shadow_fraction": 0.00047813460917749275
+    },
+    "b": {
+      "file": "imagery_b.tif",
+      "sha256": "8188f9de70a219af8808480310133f93b5799c66ee9a9c3700e517f20b31ed20",
+      "resolution_m": 10,
+      "bounds_projected": [
+        424953.994592793,
+        4027354.7888800227,
+        453168.87434398505,
+        4043029.7220751294
+      ],
+      "raster_shape": [
+        3,
+        1567,
+        2821
+      ],
+      "scl_histogram": {
+        "4": 1927,
+        "5": 1103736,
+        "6": 489,
+        "7": 25,
+        "10": 47
+      },
+      "nodata_fraction": 0.0,
+      "cloud_fraction": 4.24868742677794e-05,
+      "cloud_shadow_fraction": 0.0
+    },
+    "c": {
+      "file": "imagery_c.tif",
+      "sha256": "74ea89c0ea724b64071ff34608e5842ad26b991ca0331c8e9130f3748bde4f80",
+      "resolution_m": 10,
+      "bounds_projected": [
+        338401.8869354835,
+        3976552.9922076277,
+        346349.0748233499,
+        3980968.0965897758
+      ],
+      "raster_shape": [
+        3,
+        442,
+        795
+      ],
+      "scl_histogram": {
+        "2": 67,
+        "4": 2386,
+        "5": 79891,
+        "6": 4738,
+        "7": 655
+      },
+      "nodata_fraction": 0.0,
+      "cloud_fraction": 0.0,
+      "cloud_shadow_fraction": 0.0
+    }
+  },
+  "processing": "Window crop and same-date mosaic; bilinear resampling for displayed TCI, nearest-neighbour SCL for diagnostics. No cloud replacement, generative fill, local retouching or radiometric analysis.",
+  "attribution": "Contains modified Copernicus Sentinel data 2023",
+  "licence_url": "https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice",
+  "stac_registry": "https://registry.opendata.aws/sentinel-2-l2a-cogs/"
+}

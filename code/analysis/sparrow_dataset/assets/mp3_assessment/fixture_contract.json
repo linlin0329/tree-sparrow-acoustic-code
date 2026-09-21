@@ -1,0 +1,179 @@
+{
+  "source": "data/validation/mp3_encoding/fixtures",
+  "fixture_ids": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10",
+    "noise"
+  ],
+  "sample_rate_hz": 48000,
+  "channels": 1,
+  "reference_relative_tolerance": 1e-10,
+  "reference_absolute_tolerance": 1e-08,
+  "scope": "Eleven fixed WAV/MP3 pairs and measurement references; no FLAC input and no new encoding.",
+  "files": [
+    {
+      "name": "S01.wav",
+      "size_bytes": 1296044,
+      "sha256": "49e340efd548d233e728e39e26ee25a9ba3ef206fab6e48bf3c19f7f59dee97d",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S01.mp3",
+      "size_bytes": 542445,
+      "sha256": "de5190d436b1cc39b8037b6ee7268f3c6ccd7fd500238b559dbbd545e17881f1",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S02.wav",
+      "size_bytes": 1440044,
+      "sha256": "7f5086e93ffa901bb13c59b3d98cbd95f5a1ded541de5df94392fc98b128f621",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S02.mp3",
+      "size_bytes": 601965,
+      "sha256": "2460ed23641f084c616b6c6e9c7bd5262944c8f19297a7be717fc9e8a6654860",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S03.wav",
+      "size_bytes": 1440044,
+      "sha256": "67f4c0e59df8ab321150ff143a69150a47bc78b03a7e1b3fc37cb751a22bd728",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S03.mp3",
+      "size_bytes": 601965,
+      "sha256": "9918479001d52d00c8847038a83744263308b0e53a2094c41452af28e0ea870f",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S04.wav",
+      "size_bytes": 1008044,
+      "sha256": "610973bd0d6c9834cf08b8e02689944e0c6135889b78179d840d5ba9996e44a9",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S04.mp3",
+      "size_bytes": 422445,
+      "sha256": "d8c48f366b73965fde110ec73a89ff80b7df97bf4630bae94c648a95f501de8a",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S05.wav",
+      "size_bytes": 1440044,
+      "sha256": "5b1f19a08e3aa6ee48027b0fc312b76f4495028fa6426b594348df92766a01e7",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S05.mp3",
+      "size_bytes": 601965,
+      "sha256": "1839a24b00e9078c9b8ba8cb8eec15ba818ebecc6cad24d60cbfc0e079eaae21",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S06.wav",
+      "size_bytes": 1440044,
+      "sha256": "29790312d416bd64ad3a5fa98f5eeb4500e5fb31240b7b5b1a3b9ca1b7ed923d",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S06.mp3",
+      "size_bytes": 601965,
+      "sha256": "0726a0dbc05b039d72829069336c55ef5cda67ffeac1fb102e7a4232965eb9c6",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S07.wav",
+      "size_bytes": 1296044,
+      "sha256": "b94f2469552711add14df6dd2f8469a90fae3aa6b11a84a1bb012a5d2d333e64",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S07.mp3",
+      "size_bytes": 542445,
+      "sha256": "ff2971f9a7aafc8d37ab4f5ccef570d829932f8f95c8e06d27b94f1f431d54ef",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S08.wav",
+      "size_bytes": 1008044,
+      "sha256": "4f67a544a686b0e481390a5dbd76a0f3d903cf89cee775a9855ec5ceff97e45e",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S08.mp3",
+      "size_bytes": 422445,
+      "sha256": "e88a9a3cf14d86e3e708f79f97fb328f0a55fe84fecc90b3647dea7639d6ed46",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S09.wav",
+      "size_bytes": 1440044,
+      "sha256": "a850a8c74da45efbc0564d28d8d772d1a6819c3841efeef5e9f3ec401151947e",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S09.mp3",
+      "size_bytes": 601965,
+      "sha256": "f69710dd69ab28c30300d75dca2a5a7fa2d8576ff07e607e88853794622620a7",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S10.wav",
+      "size_bytes": 1152044,
+      "sha256": "c04d568cb6fb07396e618807018b94e8d0978a3a062af54c4f0bf5aace85954e",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "S10.mp3",
+      "size_bytes": 481965,
+      "sha256": "048095ea5eb728016eae8915f86eae83fa4bdc1fdd62338c22f0f0aa160ffb9a",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "noise.wav",
+      "size_bytes": 768044,
+      "sha256": "b7ca3722a36b69503edd6c0adec17340bdfb0907013a75312c7a4d5d3cf94adb",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "noise.mp3",
+      "size_bytes": 322605,
+      "sha256": "e5624ddfbddcff56191eb7c26c00dcfb412de734be62e162f7f747360c05d9a5",
+      "role": "fixed_audio_fixture"
+    },
+    {
+      "name": "manifest.json",
+      "size_bytes": 4322,
+      "sha256": "787bef6831a9d10ec5b06e2aade1ba87687a9e056002aa7c41eacdfb045f8a4b",
+      "role": "measurement_reference"
+    },
+    {
+      "name": "measurements.json",
+      "size_bytes": 20221,
+      "sha256": "4ced3111c8d2a953b69bc9cc070f7cf0df2545b03b8e185dbe6be2cebbfa9fb3",
+      "role": "measurement_reference"
+    },
+    {
+      "name": "summary.json",
+      "size_bytes": 5228,
+      "sha256": "31920e06c54ddead8cbd9b21e583ddd0ca664fa837c9f6d0620c6ac9ff6fea06",
+      "role": "measurement_reference"
+    },
+    {
+      "name": "encoder_version.txt",
+      "size_bytes": 2024,
+      "sha256": "b907566da03b770c1f913bcd999f97dff1257114075f4f2172021d616224a733",
+      "role": "measurement_reference"
+    }
+  ]
+}

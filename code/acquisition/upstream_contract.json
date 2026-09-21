@@ -1,0 +1,86 @@
+{
+  "upstream_repository": "https://github.com/mcguirepr89/BirdNET-Pi.git",
+  "upstream_commit": "6334367ac0257514967025487026d6fe6b351afe",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "badd4e95e76fcbe064ed82483808afd3ce83042ea607366f6d937a77573d3a23",
+      "bytes": 84090
+    },
+    {
+      "path": "README.md",
+      "sha256": "8c9bcebbe7454edda91fd581b41707c552ba4f8abd83286a95714063ef45fe3b",
+      "bytes": 10199
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b5c122ddde3df332715702756a0f0d0a063338e863d88e2859b8815264d85a7d",
+      "bytes": 205
+    },
+    {
+      "path": "scripts/analyze.py",
+      "sha256": "d2fddc22c175389727de4fea1580486a36ff1809628cc48afd62dd9c58cf0918",
+      "bytes": 3913
+    },
+    {
+      "path": "scripts/birdnet_analysis.sh",
+      "sha256": "5555bfdffc8e3fdca1ee01db7771b518b42c2ff564cd6351894ea23dc1943213",
+      "bytes": 5923
+    },
+    {
+      "path": "scripts/birdnet_recording.sh",
+      "sha256": "3a227d8019d6c4c480d796803ec94dbb372d99b4f9216ea04bc508d6991d497a",
+      "bytes": 2217
+    },
+    {
+      "path": "scripts/cleanup.sh",
+      "sha256": "ed5b000368acfdcee508bf899debaeabbc0bd53c3fb933917e881c27bf48ea87",
+      "bytes": 747
+    },
+    {
+      "path": "scripts/custom_recording.sh",
+      "sha256": "a2df890b894979502fa719b99027c47154b814e3d1b828feca0f2ecb419a7a62",
+      "bytes": 3140
+    },
+    {
+      "path": "scripts/disk_check.sh",
+      "sha256": "3857256ff8b8bfed3a799838be3be6e4565ecb50f36f615ac8fcb9b343dd2533",
+      "bytes": 1402
+    },
+    {
+      "path": "scripts/extract_new_birdsounds.sh",
+      "sha256": "326c5de4ce16b79ea8a169eff85da076bfe4fd332fcce530cf1e4a19c08b9819",
+      "bytes": 6398
+    },
+    {
+      "path": "scripts/install_services.sh",
+      "sha256": "0b1ba05f34af6a4b95e3ef5eae349ac08e538814579746ee9dbb39c6444051de",
+      "bytes": 13791
+    },
+    {
+      "path": "scripts/server.py",
+      "sha256": "a108bde1ccb0bffb61711ec9321160254f48792dbd637a6227d1f66f48532050",
+      "bytes": 25478
+    },
+    {
+      "path": "scripts/species.py",
+      "sha256": "9ee05c1afc3ad4f96be9eb057ab572e6c2105425c77feef43d106dc34358b420",
+      "bytes": 4803
+    },
+    {
+      "path": "scripts/utils/notifications.py",
+      "sha256": "389087ad4817288e80e582c76cbb30566b8f8565fa2f4d0f9dc7a64938fbcb4f",
+      "bytes": 10984
+    },
+    {
+      "path": "scripts/utils/parse_settings.py",
+      "sha256": "965b802561e89bec49f7b6066c38236ac6ceeff766553ca4c29dc5be0aea0da3",
+      "bytes": 613
+    },
+    {
+      "path": "version.md",
+      "sha256": "2574aac3d9f8a5422f3d697ebf5f228c6c0b7bb09e36e5d8fedfba6aa5b30bdc",
+      "bytes": 1958
+    }
+  ]
+}

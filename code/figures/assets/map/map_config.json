@@ -1,0 +1,66 @@
+{
+  "map_crs": "EPSG:32648",
+  "point_overlay_frame_for_review": "EPSG:4326",
+  "point_source_datum": "not_recorded",
+  "mode": "author_confirmed_reference_positions",
+  "panels": {
+    "a": {
+      "title": "Gansu, China",
+      "bounds_lonlat": [
+        103.06,
+        35.62,
+        104.55,
+        36.62
+      ],
+      "resolution_m": 120,
+      "scale_bar_m": 30000
+    },
+    "b": {
+      "title": "Baiyin sites",
+      "bounds_lonlat": [
+        104.205,
+        36.39,
+        104.435,
+        36.53
+      ],
+      "resolution_m": 10,
+      "scale_bar_m": 5000
+    },
+    "c": {
+      "title": "Liujiaxia site",
+      "bounds_lonlat": [
+        103.225,
+        35.921,
+        103.28,
+        35.96
+      ],
+      "resolution_m": 10,
+      "scale_bar_m": 1000
+    }
+  },
+  "figure": {
+    "width_in": 7.2,
+    "height_in": 5.0,
+    "axes": {
+      "a": [
+        0.065,
+        0.17,
+        0.405,
+        0.7
+      ],
+      "b": [
+        0.565,
+        0.55,
+        0.4,
+        0.32
+      ],
+      "c": [
+        0.565,
+        0.12,
+        0.4,
+        0.32
+      ]
+    }
+  },
+  "background": "Sentinel-2 L2A true-colour imagery, 2023-05-14"
+}

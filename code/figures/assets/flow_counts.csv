@@ -1,0 +1,13 @@
+metric,count,unit
+logical_archive,337010,original_recordings
+raw_candidates,64844,original_recordings
+raw_admitted,64811,original_recordings
+raw_held,33,original_recordings
+clock_raw,2063,original_recordings
+songs,581,original_recordings
+clips,138,analysis_clips
+core_raw,116,original_recordings
+core_syllables,2556,syllables
+families,27,label_families
+leaves,41,terminal_categories
+raven_tables,138,Raven_tables

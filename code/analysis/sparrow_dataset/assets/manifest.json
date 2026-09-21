@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "licence": "CC-BY-4.0",
+  "files": [
+    {
+      "path": "LICENSE.md",
+      "size_bytes": 322,
+      "sha256": "4b6c6a2f830e24adccd737451a67ef4d6fbfecf7b80e6e7600af4b966b77ca99"
+    },
+    {
+      "path": "annotation_refinement/base_manifest.csv",
+      "size_bytes": 1184326,
+      "sha256": "aa9f3d29c0ded74f90808dc521a77c18cce648bc36d9efe5879bc70a9eb6fab4"
+    },
+    {
+      "path": "annotation_refinement/leaf_mapping.csv",
+      "size_bytes": 4579,
+      "sha256": "076d69d23c7fba1f8fc3ac61d56ce4120230df84cc34edc90a937e9a40b92474"
+    },
+    {
+      "path": "annotation_refinement/prior_audit.csv",
+      "size_bytes": 1197970,
+      "sha256": "8f8ad17e843b63e42e1ba4e0eae333209817641c4ccabf23202972acf7c65ee1"
+    },
+    {
+      "path": "clustering/feature_definition.json",
+      "size_bytes": 2622,
+      "sha256": "fc14b127d6a370b728e7dc277c9fef43cf914534c18169f6ae5f3217c440332a"
+    },
+    {
+      "path": "clustering/rms_energy.npy",
+      "size_bytes": 23272,
+      "sha256": "913fbfc4db5a7550475a27687882149699814832b2aded0d96735c733f5fbe4f"
+    },
+    {
+      "path": "clustering/selected_parameters.json",
+      "size_bytes": 611,
+      "sha256": "6e5187496e9fab6f7ac2bae7792ce7a10210709664e4a82516fce750bd49414b"
+    },
+    {
+      "path": "label_assessment/archive/manifest.csv",
+      "size_bytes": 1187413,
+      "sha256": "d2c6614bd57897970c479c3be5b88280e8fef99c9db6fd07fd3422400a1835b7"
+    },
+    {
+      "path": "label_assessment/archive/summary.json",
+      "size_bytes": 366,
+      "sha256": "eea4390c79612d747e5bf0774445e8a22e8f89f637ca7863d13f203041d1bc57"
+    },
+    {
+      "path": "label_assessment/classifier/syllable_logmel_patches.npy",
+      "size_bytes": 23699584,
+      "sha256": "cdf0b33d575d9ed1d92fae55e698e22cba476d504160eea4ca95b00a9496acf3"
+    },
+    {
+      "path": "label_assessment/pair_evidence/analysis_metadata.json",
+      "size_bytes": 14089,
+      "sha256": "0a3d815be8f37d43a218d53650578441e07c904b9e0b7a318892043c24fd39e6"
+    },
+    {
+      "path": "label_assessment/pair_evidence/pairwise_similarity_evidence.csv",
+      "size_bytes": 42166,
+      "sha256": "90f7d4bb5c44e002edf2f9e711694ca6cc26ccad15c6fe165c012bea39133dd1"
+    },
+    {
+      "path": "label_assessment/run/feature_names.json",
+      "size_bytes": 2162,
+      "sha256": "79dded3640d656b8bccc52842932aa81a03d6cefa7f19f0c72dea56cd2a8c146"
+    },
+    {
+      "path": "label_assessment/run/feature_rows.csv",
+      "size_bytes": 651581,
+      "sha256": "22989121e487b649bab03464504f62c74d4fe96352ef821068cb6c6d8894edf4"
+    },
+    {
+      "path": "label_assessment/run/features_105d.npy",
+      "size_bytes": 1215188,
+      "sha256": "cb848f830a2b6b6f50d7f6e12fe123477f62318bc34b4b8584728b243901325d"
+    },
+    {
+      "path": "mp3_assessment/fixture_contract.json",
+      "size_bytes": 5333,
+      "sha256": "6c610574374e9d7d29d22150015b434cb0d91f02670ac3c89f2a34af8a61b2d8"
+    },
+    {
+      "path": "songiness/candidates_high_prob.list",
+      "size_bytes": 935,
+      "sha256": "49fdc8906b1dc7789fe11165e51a49288ebd51a8d4266b3e59e69bb32f782f62"
+    },
+    {
+      "path": "songiness/candidates_medium_prob.list",
+      "size_bytes": 1074,
+      "sha256": "6c7cbc02ea9434f69a772f6b0dcbc37123f9f133e7291ccfb515e7ebcf392849"
+    },
+    {
+      "path": "songiness/candidates_thr0.02/candidates.csv",
+      "size_bytes": 1067993,
+      "sha256": "483b5b6e6837dd11cfe9665174bc330bd04080e20cced392dc91cf7a16bd31f8"
+    },
+    {
+      "path": "songiness/features_full.csv",
+      "size_bytes": 24479584,
+      "sha256": "3361ee58c1fe4e03b0afeaea1cd68cfda7fe22cf577908afcfcafd813ffa1d71"
+    },
+    {
+      "path": "songiness/recording_features_allseg.csv",
+      "size_bytes": 4890856,
+      "sha256": "ba4f53d8c6081f574fe7ead3137b33c1c8506dc1152cbe692455e681837e6945"
+    },
+    {
+      "path": "songiness/reliable_2023.csv",
+      "size_bytes": 3702786,
+      "sha256": "51cda1fdf14f71a3c3ac12b3f4f8b8339068bfc9ffe34687dc8049b8ceb106f6"
+    },
+    {
+      "path": "songiness/reliable_2024.csv",
+      "size_bytes": 2136070,
+      "sha256": "d3b7fccb5b41d285150fa029b9808926cc843e69dd0c6816a1f09ec0f3e26653"
+    },
+    {
+      "path": "songiness/scorer_recall_retention.csv",
+      "size_bytes": 3120,
+      "sha256": "fc86050ff0060c5cd21ac3cb3fb7912857092512fdd07ae49b14d9333e770b6a"
+    },
+    {
+      "path": "songiness/scores_all.csv",
+      "size_bytes": 10867403,
+      "sha256": "bdda8b9d0bbee5b978ed09d06602932dad80792a56b695eb18743deec011d999"
+    },
+    {
+      "path": "songiness/screening_accuracy_summary.csv",
+      "size_bytes": 2193,
+      "sha256": "f4a8747732009c42482fbedb2bc39453514f040a81851d6a9f7a8843d2f96c41"
+    },
+    {
+      "path": "songiness/screening_candidate_labels.csv",
+      "size_bytes": 1188735,
+      "sha256": "6d902b3e4774a54ebd632ac1082fb5f5d3a78be4cc0f3f5e83fe3a82729affaa"
+    },
+    {
+      "path": "songiness/screening_rank_bins.csv",
+      "size_bytes": 630,
+      "sha256": "05f022df5d1ac9c6c6361c3afbe25ebc84e3da6f71d400d0131d726d843cc234"
+    },
+    {
+      "path": "songiness/screening_topk_metrics.csv",
+      "size_bytes": 867,
+      "sha256": "d3e446d5974276c04676d0c0c51bd438b23fc1185ec4b3bbef1e8c08a08b675c"
+    },
+    {
+      "path": "songiness/song_final_list.csv",
+      "size_bytes": 27380,
+      "sha256": "01f5d80f57549556a18ee65931e5e1e62b26c6fbee0ca3f271da58ca7e47a2ef"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "source": "Researcher-confirmed village reference locations",
+  "site_codes": [
+    "LJX",
+    "YX",
+    "LZ",
+    "SH",
+    "MQ",
+    "GYY"
+  ],
+  "scope": "Reference locations represent the sampling village areas, not individual recorder GPS positions. The coordinate datum and measurement precision were not recorded. All six recorded positions are retained.",
+  "decision": "retain_all_six_reported_reference_locations"
+}

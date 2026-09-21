@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sparrow-dataset-tools"
+version = "1.0.0"
+description = "Portable processing and reuse tools for the Eurasian tree sparrow acoustic dataset"
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = []
+
+[project.optional-dependencies]
+audio = ["numpy==2.2.5", "soundfile==0.13.1"]
+science = [
+  "numpy==2.2.5", "scipy==1.15.3", "pandas==2.3.3", "matplotlib==3.10.6",
+  "scikit-learn==1.7.2", "librosa==0.11.0", "soundfile==0.13.1",
+  "joblib==1.5.2", "scikit-image==0.25.2", "tqdm==4.67.1",
+  "umap-learn==0.5.9.post2", "hdbscan==0.8.41", "numba==0.62.1",
+  "llvmlite==0.45.1", "pynndescent==0.5.13", "threadpoolctl==3.6.0",
+  "soxr==1.0.0", "audioread==3.1.0"
+]
+
+[project.scripts]
+sparrow-data = "sparrow_dataset.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sparrow_dataset*"]
+
+[tool.setuptools.package-data]
+sparrow_dataset = ["assets/**/*"]

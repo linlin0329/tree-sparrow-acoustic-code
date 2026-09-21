@@ -1,0 +1,19 @@
+{
+  "file": "equipment.jpeg",
+  "creator": "Researcher",
+  "license": "CC-BY-4.0",
+  "sha256": "16e4869e89d332839f85e146ed6387d36f848fc13b99198da149533d6bf9635d",
+  "dimensions_pixels": [
+    531,
+    708
+  ],
+  "subject": "Research field recorder used for the 2023 and 2024 sampling seasons",
+  "capture_date": "not recorded",
+  "depicted_components": [
+    "battery",
+    "Raspberry Pi",
+    "USB audio interface",
+    "microphone with black windscreen"
+  ],
+  "display_processing": "The figure crops the top 60 image rows, scales proportionally and adds vector labels. Hardware appearance and photograph pixels are not retouched."
+}

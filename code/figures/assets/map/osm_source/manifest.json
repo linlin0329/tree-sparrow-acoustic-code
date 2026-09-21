@@ -1,0 +1,50 @@
+{
+  "license": "ODbL-1.0",
+  "snapshots": [
+    {
+      "file": "osm_baiyin_map.xml.gz",
+      "compressed_bytes": 742599,
+      "uncompressed_sha256": "36f097a6f53f8e359291226d3e21c9bebdc2c18b012fd167605a4040ebbfe534",
+      "compressed_sha256": "aad3f4b5ffcf60f98c682fc5cd965ef59c21a7a2b160037123123d40141d1e70"
+    },
+    {
+      "file": "osm_liujiaxia_full.xml.gz",
+      "compressed_bytes": 220935,
+      "uncompressed_sha256": "9711583746276e750935824f9f34bdb0d6f86c8a98a0d9f2a6cfa67f5a612c55",
+      "compressed_sha256": "5279cc3c1d3f28062ac35798901c836d2295438c71bdeba8c2ab2fbc990b3b97"
+    },
+    {
+      "file": "osm_ljx_map.xml.gz",
+      "compressed_bytes": 367964,
+      "uncompressed_sha256": "fe05058afe16dafb75f607126cc001acf1b4127ff2ae91a25cd2e42247194bfd",
+      "compressed_sha256": "123eeb4071d09e78ee662347480034789c81515b38c12b3a0df66ef2faa1e98d"
+    },
+    {
+      "file": "osm_relation_6280219_full.xml.gz",
+      "compressed_bytes": 25106,
+      "uncompressed_sha256": "21646530fed3a70f3fc53bc1e72b3569644a4920ef722e3fcf0acc4c3365f778",
+      "compressed_sha256": "8e48bd010bf1c7da87cc679c3ab87b5f7ddf107d4ac1108dc4106e75e88f1535"
+    },
+    {
+      "file": "osm_relation_6336498_full.xml.gz",
+      "compressed_bytes": 33223,
+      "uncompressed_sha256": "ad937b3a79936a13b4fa3e1e1d4088983358184baaaeeacdc770e05180ba0595",
+      "compressed_sha256": "4cc7bb47f54b0a12c7bc6bc3dd35299f1baa28c90e46d86ea1708324e61e3662"
+    },
+    {
+      "file": "osm_yanguoxia_full.xml.gz",
+      "compressed_bytes": 63458,
+      "uncompressed_sha256": "825f7ac3d6f4e9ad72c8a5c70116d9f657dc0b19bea46603795c2510446b28a7",
+      "compressed_sha256": "7ff8fb92f9d5eab8319cae8bb25ea178530afd3f8258db0e4e6bc39636bc4170"
+    },
+    {
+      "file": "osm_yellow_river_full.xml.gz",
+      "compressed_bytes": 766351,
+      "uncompressed_sha256": "0b252013d1bfe8876d1e7472ae0ba2925e3128bc26ebfa16f3d19136990ef591",
+      "compressed_sha256": "a37bcd2dbcf1fc7fe17edfd49dba97d8c06ef4c165539b3e10090704efaf70ce"
+    }
+  ],
+  "source": "OpenStreetMap",
+  "attribution": "© OpenStreetMap contributors",
+  "license_url": "https://www.openstreetmap.org/copyright"
+}

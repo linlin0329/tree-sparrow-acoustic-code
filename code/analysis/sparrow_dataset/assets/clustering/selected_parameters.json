@@ -1,0 +1,22 @@
+{
+  "mode": "robust_hd",
+  "selected_parameters": {
+    "n_neighbors": 10,
+    "min_dist": 0.0,
+    "min_cluster_size": 10,
+    "min_samples": 5,
+    "seed": 52,
+    "n_components": 10
+  },
+  "selection_metrics": {
+    "stability_ari": 0.6085975481264725,
+    "median_clusters": 115.0,
+    "median_noise": 0.2481852748012444,
+    "median_silhouette": 0.6701305508613586,
+    "median_relative_validity": 0.29931655850148076,
+    "median_persistence": 0.013453740515575628,
+    "selection_score": 0.8067796610169491
+  },
+  "energy_filter": "none; rms_energy retained as QC",
+  "cluster_selection_method": "leaf"
+}

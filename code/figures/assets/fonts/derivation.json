@@ -1,0 +1,21 @@
+{
+  "source": "CormorantGaramond.ttf",
+  "derived": "DatasetCormorantLining-Regular.ttf",
+  "weight": 400,
+  "digit_glyphs": {
+    "0": "zero.lf",
+    "1": "one.lf",
+    "2": "two.lf",
+    "3": "three.lf",
+    "4": "four.lf",
+    "5": "five.lf",
+    "6": "six.lf",
+    "7": "seven.lf",
+    "8": "eight.lf",
+    "9": "nine.lf"
+  },
+  "feature": "Built-in lnum, proportional lining numerals",
+  "glyph_outlines_modified": false,
+  "source_sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0",
+  "derived_sha256": "095f6c66e0d893783a1cb6204f481ec80f469c2453fd73013f0aeaea28859789"
+}

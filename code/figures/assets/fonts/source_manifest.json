@@ -1,0 +1,17 @@
+{
+  "fonts": [
+    {
+      "file": "CormorantGaramond.ttf",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf",
+      "licence": "CormorantGaramond-OFL.txt",
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0"
+    },
+    {
+      "file": "Lato-Regular.ttf",
+      "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/lato/Lato-Regular.ttf",
+      "licence": "Lato-OFL.txt",
+      "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
+    }
+  ],
+  "derivation": "See derivation.json: the derived font uses weight 400 and built-in proportional lining numerals with unchanged glyph outlines."
+}

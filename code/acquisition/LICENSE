@@ -1,0 +1,28 @@
+LICENCE SCOPE
+
+Original retention.py, pipeline.py, manage.py, tests, configuration and project
+documentation are licensed under the MIT License in LICENSE-MIT.
+Copyright (c) 2026 Researchers.
+
+model_bridge.py is the project adaptation of the fixed BirdNET-Pi/BirdNET-Lite
+model-function interface and is distributed under Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
+The adaptation selects eight upstream functions, redirects configured file
+paths and binds analysis to explicit recording metadata; it preserves the
+upstream scoring algorithm. The project contributions are by Researchers.
+
+vendor/server.py and vendor/labels.txt retain their upstream terms. The complete
+pinned BirdNET-Pi/BirdNET-Lite licence and accompanying third-party notices are
+preserved without modification in vendor/LICENSE. That file credits the
+K. Lisa Yang Center for Conservation Bioacoustics, Cornell Lab of Ornithology,
+Cornell University, and Patrick McGuire, and states CC BY-NC-SA 4.0 for
+BirdNET-Lite/BirdNET-Pi. Do not interpret a licence paragraph for an accompanying
+component as relicensing the complete BirdNET source or model interface.
+
+Upstream: https://github.com/mcguirepr89/BirdNET-Pi
+Commit: 6334367ac0257514967025487026d6fe6b351afe
+
+External model weights, Python packages, ALSA and FFmpeg binaries are not
+redistributed here and retain their own terms. The MIT licence applies only
+to the original material identified above; it does not replace the upstream
+NonCommercial or ShareAlike conditions or license the component as a whole.

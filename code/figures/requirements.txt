@@ -1,0 +1,15 @@
+# Figure 1–4 source environment; original lockfile is archived under v0_17.
+# Figure 5: NumPy 2.2.5; Figure 6: NumPy 1.26.4. Original arrays are bundled.
+# The entry verifies original matrix hashes and tightly bounds recomputation differences.
+numpy==2.5.3
+scipy==1.18.1
+matplotlib==3.11.2
+Cartopy==0.26.0
+geopandas==1.1.4
+rasterio==1.5.1
+pyproj==3.8.0
+shapely==2.1.2
+Pillow==12.3.0
+PyMuPDF==1.28.2
+fonttools==4.65.0
+soundfile==0.13.1
