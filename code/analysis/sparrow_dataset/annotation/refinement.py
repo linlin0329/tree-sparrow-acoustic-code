@@ -32,49 +32,8 @@ EXPECTED_OUTPUT_LEAVES = 41
 
 EXPECTED_FAMILIES = 27
 
-EXPECTED_TARGET_BUCKET_COUNTS = {
-    "single_group_01": 375,
-    "single_group_01_v1": 95,
-    "single_group_02": 40,
-    "single_group_02_v1": 13,
-    "single_group_03": 125,
-    "single_group_04": 83,
-    "single_group_04_v1": 21,
-    "single_group_05": 66,
-    "single_group_05_v1": 17,
-    "single_group_06": 29,
-    "single_group_07": 31,
-    "single_group_08": 18,
-    "single_group_08_v1": 23,
-    "single_group_09": 32,
-    "single_group_10": 59,
-    "single_group_11": 55,
-    "single_group_12": 15,
-    "single_group_12_v1": 17,
-    "single_group_13": 8,
-    "single_group_14": 31,
-    "double_group_01": 314,
-    "double_group_01_v1": 28,
-    "double_group_02": 153,
-    "double_group_02_v1": 19,
-    "double_group_03": 69,
-    "double_group_03_v1": 19,
-    "double_group_04": 69,
-    "double_group_05": 23,
-    "triple_group_01": 239,
-    "triple_group_01_v1": 130,
-    "triple_group_02": 77,
-    "triple_group_03": 35,
-    "triple_group_03_v1": 7,
-    "triple_group_04": 66,
-    "triple_group_04_v1": 12,
-    "triple_group_05": 74,
-    "triple_group_06": 12,
-    "triple_group_06_v1": 8,
-    "triple_group_07": 39,
-    "triple_group_08": 3,
-    "triple_group_08_v1": 7,
-}
+LABEL_VERSION = 'sdt-taxonomy-r2-2026-09-24'
+EXPECTED_TARGET_BUCKET_COUNTS = {'double_group_01': 314, 'double_group_01_v1': 28, 'double_group_02': 153, 'double_group_02_v1': 19, 'double_group_03': 69, 'double_group_03_v1': 19, 'double_group_04': 69, 'double_group_06': 23, 'single_group_01': 375, 'single_group_01_v1': 95, 'single_group_02': 40, 'single_group_02_v1': 13, 'single_group_03': 125, 'single_group_04': 83, 'single_group_04_v1': 21, 'single_group_05': 66, 'single_group_05_v1': 17, 'single_group_06': 29, 'single_group_07': 31, 'single_group_08': 18, 'single_group_08_v1': 23, 'single_group_09': 32, 'single_group_10': 59, 'single_group_11': 55, 'single_group_12': 15, 'single_group_12_v1': 17, 'single_group_13': 8, 'single_group_14': 31, 'triple_group_01': 239, 'triple_group_01_v1': 130, 'triple_group_02': 77, 'triple_group_03': 35, 'triple_group_03_v1': 7, 'triple_group_05': 66, 'triple_group_05_v1': 12, 'double_group_05': 74, 'triple_group_04': 12, 'triple_group_04_v1': 8, 'triple_group_06': 39, 'triple_group_07': 3, 'triple_group_07_v1': 7}
 
 
 MANIFEST_COLUMNS = (
@@ -117,6 +76,7 @@ ACTIONS = frozenset(
         "delete_whole_bucket",
         "merge_into_main_bucket",
         "family_renumber",
+        "structure_reclassification",
         "retain_code",
     )
 )
@@ -174,10 +134,9 @@ def validate_mapping_inputs(
             continue
         structure, _, family, variant = parse_target_bucket(row.target_bucket_code)
         require(family == row.target_family_code, "target family and bucket disagree")
-        require(
-            structure == parse_target_bucket(row.source_bucket_code)[0],
-            "refinement cannot change syllable structure",
-        )
+        source_structure = parse_target_bucket(row.source_bucket_code)[0]
+        require((structure != source_structure) == (row.action == "structure_reclassification"),
+                "cross-structure correction requires an explicit structure_reclassification action")
         if row.action == "retain_code":
             require(
                 row.source_bucket_code == row.target_bucket_code,
@@ -300,6 +259,7 @@ def build_decision_audit(
             "delete_whole_bucket": "manual_deleted_sdt_refined",
             "merge_into_main_bucket": "merged_into_main_bucket",
             "family_renumber": "family_renumbered",
+            "structure_reclassification": "author_corrected_structure",
             "retain_code": "retained_unchanged",
         }
     )
@@ -319,6 +279,7 @@ def build_decision_audit(
         axis=1,
     )
     for column in [
+        "syllable_structure",
         "final_group_id",
         "final_group_code",
         "final_bucket_code",
@@ -328,6 +289,7 @@ def build_decision_audit(
     ]:
         result.loc[retained.index, column] = retained[column]
         result.loc[deleted, column] = pd.NA
+    result["label_version"] = LABEL_VERSION
     validate_decisions(result, canonical=canonical)
     return result
 
@@ -346,6 +308,8 @@ def validate_decisions(decisions: pd.DataFrame, *, canonical: bool = True) -> No
         raise ValueError(f"SDT精炼删除计数异常：{counts}")
     if counts.get("merged_into_main_bucket") != 62:
         raise ValueError(f"SDT精炼合并计数异常：{counts}")
+    if canonical and int(decisions["sdt_refined_action"].eq("structure_reclassification").sum()) != 74:
+        raise ValueError("taxonomy R2 requires the confirmed74-syllable structural correction")
     retained = decisions[
         decisions["sdt_refined_decision"].ne("manual_deleted_sdt_refined")
     ]
@@ -403,6 +367,8 @@ def update_complete_audit(
         how="left",
         validate="one_to_one",
     )
+    if canonical and int(decisions["sdt_refined_action"].eq("structure_reclassification").sum()) != 74:
+        raise ValueError("taxonomy R2 requires the confirmed74-syllable structural correction")
     retained = decisions[
         decisions["sdt_refined_decision"].ne("manual_deleted_sdt_refined")
     ]

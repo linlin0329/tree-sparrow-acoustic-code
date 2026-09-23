@@ -48,7 +48,7 @@ def materialize(
     mapping_path: Path,
     output_dir: Path,
     *,
-    design_name: str = "sdt_refinement_design_2556",
+    design_name: str = "sdt_refinement_plus_taxonomy_r2",
     audio_root: Path | None = None,
     canonical: bool = True,
     dry_run: bool = False,
@@ -100,6 +100,8 @@ def materialize(
     crosswalk = build_crosswalk(decisions)
     summary = {
         "profile": "canonical2556" if canonical else "custom_not_canonical2556",
+        "label_version": "sdt-taxonomy-r2-2026-09-24",
+        "boundary_basis": "historical_research_waveforms_before_R1",
         "design_name": design_name,
         "input_rows": len(manifest),
         "retained_rows": len(retained),
@@ -196,7 +198,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--audio-root", type=Path)
-    parser.add_argument("--design-name", default="sdt_refinement_design_2556")
+    parser.add_argument("--design-name", default="sdt_refinement_plus_taxonomy_r2")
     parser.add_argument(
         "--profile", choices=("canonical2556", "custom"), default="canonical2556"
     )

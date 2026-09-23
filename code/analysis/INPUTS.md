@@ -62,7 +62,9 @@ sample identities. The assembler checks the declared file hashes, uses source
 recording IDs to deduplicate the song index, joins Raven rows by their original
 row identity, and compares integer-frame cuts against reference audio. It does
 not infer missing researcher decisions or promote candidate alignment offsets.
-Its final public tables use version 1.0.0 and omit internal revision-only fields.
+Its final public tables retain waveform/coordinate data_version 1.0.0 and use
+label_version `sdt-taxonomy-r2-2026-09-24`; the package/schema version is 1.0.1.
+Internal revision-only fields are omitted from the public tables.
 
 The raw inventory/QC stages also need the complete archive and companion
 BirdNET CSVs, including excluded records. Their `relative_path` values are
@@ -70,3 +72,13 @@ preserved because they participate in source identities. The source archive
 layout uses `birdsongs_YEAR/data/wav/raw/`; published audio paths use
 `audio/raw/YEAR/`. Use `stage-help` to inspect each stage's arguments and run
 `process` without `--run` to inspect a command before execution.
+
+## Versioned numerical assets
+
+The label-assessment assets contain the full 2,893-row feature library with
+exactly the two R1 rows replaced, a 2,556-row current-label archive and 127
+R1 within-structure pair results. Historical clustering/refinement remains an
+explicit earlier stage; these artifacts do not claim that the historical
+human decisions were already using the corrected structure label. The
+retained historical leaf mapping is archival and is not accepted as a
+current R2 contract without the explicit correction.

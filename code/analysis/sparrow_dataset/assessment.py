@@ -100,6 +100,10 @@ def replay(kind: str, assets: Path, output: Path, *, run: bool = False) -> dict:
             sys.executable,
             "-m",
             "sparrow_dataset.assessments.taxonomy",
+            "--taxonomy-profile",
+            "2556-taxonomy-r2",
+            "--split-feasibility-policy",
+            "retry-seed",
             "--archive-dir",
             str(label / "archive"),
             "--run-dir",
@@ -153,7 +157,8 @@ def replay(kind: str, assets: Path, output: Path, *, run: bool = False) -> dict:
     result = {
         "status": "planned",
         "command": command,
-        "assessment_boundary_basis": "assessment_annotation_bounds",
+        "assessment_boundary_basis": "canonical2556-boundary-r1-2026-09-17",
+        "label_version": "sdt-taxonomy-r2-2026-09-24",
         "run_requested": run,
     }
     if run:

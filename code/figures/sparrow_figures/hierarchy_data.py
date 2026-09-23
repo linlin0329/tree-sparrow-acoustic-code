@@ -125,9 +125,9 @@ def validated_data(metadata_dir):
         )
     if not [
         (g["family_count"], g["leaf_count"], g["syllable_count"]) for g in groups
-    ] == [(14, 20, 1153), (5, 8, 694), (8, 13, 709)]:
+    ] == [(14, 20, 1153), (6, 9, 768), (7, 12, 635)]:
         raise ValueError(
-            "Figure input requirement failed: [(g['family_count'], g['leaf_count'], g['syllable_count']) for g in groups] == [(14, 20, 1153), (5, 8, 694), (8, 13, 709)]"
+            "Figure input requirement failed: [(g['family_count'], g['leaf_count'], g['syllable_count']) for g in groups] == [(14, 20, 1153), (6, 9, 768), (7, 12, 635)]"
         )
     if not (
         sum((r["terminal_role"] == "Main" for r in rows)) == 27

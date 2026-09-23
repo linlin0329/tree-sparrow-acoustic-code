@@ -29,27 +29,9 @@ from sklearn.metrics import (
 from sklearn.preprocessing import LabelEncoder
 
 
-from .taxonomy_inputs import (
-    load_analysis_inputs,
-    prepare_label_blind_views,
-    recording_blocked_splits,
-    sha256_file,
-    support_tier,
-)
-
-# Only valid site identifiers are checked here.
-SITE_TO_LEVEL = {
-    site: None
-    for site in (
-        "liujiaxia",
-        "yongxing",
-        "liangzhuang",
-        "shuanghe",
-        "minqin",
-        "guanyinya",
-    )
-}
-
+from .taxonomy_inputs import (load_analysis_inputs, prepare_label_blind_views,
+                              recording_blocked_splits, sha256_file, support_tier)
+SITE_TO_LEVEL = {site: None for site in ("liujiaxia", "yongxing", "liangzhuang", "shuanghe", "minqin", "guanyinya")}
 
 matplotlib.use("Agg")
 
@@ -58,8 +40,12 @@ EXPECTED_FAMILIES = 27
 EXPECTED_LEAVES = 41
 EXPECTED_VARIANT_FAMILIES = 14
 EXPECTED_REUSED_PAIRS = 129
+TAXONOMY_PROFILE = "2556"
+SPLIT_FEASIBILITY_POLICY = "strict"
 STRUCTURES = ("single", "double", "triple")
-STEM_RE = re.compile(r"^(?P<site>[a-z]+)_(?P<date>\d{4}-\d{2}-\d{2})-birdnet-")
+STEM_RE = re.compile(
+    r"^(?P<site>[a-z]+)_(?P<date>\d{4}-\d{2}-\d{2})-birdnet-"
+)
 
 
 def file_hash(path: Path) -> str:
@@ -68,7 +54,7 @@ def file_hash(path: Path) -> str:
 
 
 def parse_source_stem(stem: str) -> tuple[str, int]:
-    """从录音标识提取样地和年份。"""
+    """从冻结录音名提取样地和年份。"""
     match = STEM_RE.match(str(stem))
     if match is None:
         raise ValueError(f"非法source_stem：{stem}")
@@ -86,7 +72,9 @@ def add_taxonomy_columns(frame: pd.DataFrame) -> pd.DataFrame:
     result["leaf"] = result["final_bucket_code"].astype(str)
     result["structure"] = result["syllable_structure"].astype(str)
     parsed = result["source_stem"].map(parse_source_stem)
-    result[["site", "year"]] = pd.DataFrame(parsed.tolist(), index=result.index)
+    result[["site", "year"]] = pd.DataFrame(
+        parsed.tolist(), index=result.index
+    )
     if (
         len(result) != EXPECTED_SIZE
         or result["stable_id"].nunique() != EXPECTED_SIZE
@@ -131,7 +119,9 @@ def source_balanced_units(
 
 def distance_ratio(vectors: np.ndarray, labels: np.ndarray) -> float:
     """返回组间距离中位数与组内距离中位数之比。"""
-    distances = np.linalg.norm(vectors[:, None, :] - vectors[None, :, :], axis=2)
+    distances = np.linalg.norm(
+        vectors[:, None, :] - vectors[None, :, :], axis=2
+    )
     upper = np.triu(np.ones(distances.shape, dtype=bool), k=1)
     same = labels[:, None] == labels[None, :]
     within = distances[upper & same]
@@ -196,9 +186,13 @@ def label_prototypes(
     order: list[str],
 ) -> np.ndarray:
     """用录音中位原型的中位数构建label原型。"""
-    units, vectors = source_balanced_units(representation, frame, label_column)
+    units, vectors = source_balanced_units(
+        representation, frame, label_column
+    )
     labels = units["label"].astype(str).to_numpy()
-    return np.vstack([np.median(vectors[labels == label], axis=0) for label in order])
+    return np.vstack(
+        [np.median(vectors[labels == label], axis=0) for label in order]
+    )
 
 
 def geometry_evidence(
@@ -219,7 +213,9 @@ def geometry_evidence(
         ("family", "family"),
         ("leaf", "leaf"),
     ):
-        units, vectors = source_balanced_units(views["fused_60d"], frame, column)
+        units, vectors = source_balanced_units(
+            views["fused_60d"], frame, column
+        )
         labels = units["label"].astype(str).to_numpy()
         result = bootstrap_geometry(
             units,
@@ -229,7 +225,9 @@ def geometry_evidence(
             seed=seed + len(metric_rows),
         )
         order = sorted(frame[column].astype(str).unique())
-        prototypes_94 = label_prototypes(views["perceptual_94d"], frame, column, order)
+        prototypes_94 = label_prototypes(
+            views["perceptual_94d"], frame, column, order
+        )
         prototypes_logmel = label_prototypes(
             views["logmel_pca30"], frame, column, order
         )
@@ -294,12 +292,13 @@ def eligible_labels(
         .reset_index()
         .rename(columns={label_column: "label"})
     )
-    support["classification_estimable"] = support["n_syllables"].ge(10) & support[
-        "n_source_recordings"
-    ].ge(3)
-    labels = (
-        support.loc[support["classification_estimable"], "label"].astype(str).tolist()
+    support["classification_estimable"] = (
+        support["n_syllables"].ge(10)
+        & support["n_source_recordings"].ge(3)
     )
+    labels = support.loc[
+        support["classification_estimable"], "label"
+    ].astype(str).tolist()
     return labels, support
 
 
@@ -335,10 +334,40 @@ def classification_once(
 
 def top_k_accuracy(labels: np.ndarray, probabilities: np.ndarray, k: int) -> float:
     """计算多分类top-k准确率。"""
-    top = np.argpartition(probabilities, -min(k, probabilities.shape[1]), axis=1)[
-        :, -min(k, probabilities.shape[1]) :
-    ]
+    top = np.argpartition(
+        probabilities, -min(k, probabilities.shape[1]), axis=1
+    )[:, -min(k, probabilities.shape[1]) :]
     return float(np.mean(np.any(top == labels[:, None], axis=1)))
+
+
+def classification_folds(
+    labels: np.ndarray,
+    groups: np.ndarray,
+    n_splits: int,
+    requested_seed: int,
+    *,
+    policy: str = "strict",
+    used_seeds: set[int] | None = None,
+) -> tuple[list[tuple[np.ndarray, np.ndarray]], int, list[dict]]:
+    """只按训练类别覆盖检查分折；不拟合模型、不读取预测或成绩。"""
+    if policy not in {"strict", "retry-seed"}:
+        raise ValueError(f"Unknown split feasibility policy: {policy}")
+    used_seeds = set() if used_seeds is None else set(used_seeds)
+    classes = set(np.unique(labels))
+    attempts = []
+    for candidate in range(requested_seed, requested_seed + 100):
+        if candidate in used_seeds:
+            attempts.append({"seed": candidate, "status": "already_used", "missing_train_classes": []})
+            continue
+        folds = recording_blocked_splits(labels, groups, n_splits, candidate)
+        missing = [sorted(int(x) for x in classes - set(labels[train])) for train, _ in folds]
+        valid = not any(missing)
+        attempts.append({"seed": candidate, "status": "accepted" if valid else "missing_training_class", "missing_train_classes": missing})
+        if valid:
+            return folds, candidate, attempts
+        if policy == "strict":
+            raise ValueError(f"录音阻断训练折缺少类别: seed={candidate}, missing={missing}")
+    raise ValueError("100个固定顺序候选seed均无法满足训练类别覆盖；未计算任何预测成绩")
 
 
 def classification_evidence(
@@ -375,12 +404,19 @@ def classification_evidence(
         repeat_probabilities: list[np.ndarray] = []
         repeat_metrics: list[tuple[float, float, float]] = []
         first_folds: list[tuple[np.ndarray, np.ndarray]] | None = None
+        split_audit: list[dict] = []
+        used_split_seeds: set[int] = set()
         for repeat in range(repeats):
-            folds = recording_blocked_splits(y, groups, n_splits, seed + repeat)
+            folds, split_seed, attempts = classification_folds(
+                y, groups, n_splits, seed + repeat,
+                policy=SPLIT_FEASIBILITY_POLICY, used_seeds=used_split_seeds,
+            )
+            used_split_seeds.add(split_seed)
+            split_audit.append({"repeat": repeat, "requested_seed": seed + repeat, "used_seed": split_seed, "attempts": attempts})
             if first_folds is None:
                 first_folds = folds
             predicted, probabilities = classification_once(
-                x, y, groups, folds, seed=seed + repeat
+                x, y, groups, folds, seed=split_seed
             )
             repeat_predictions.append(predicted)
             repeat_probabilities.append(probabilities)
@@ -402,16 +438,20 @@ def classification_evidence(
                 "n_source_recordings": int(current["source_stem"].nunique()),
                 "cv_repeats": repeats,
                 "cv_splits": n_splits,
+                "split_feasibility_policy": SPLIT_FEASIBILITY_POLICY,
+                "split_seed_audit": json.dumps(split_audit, ensure_ascii=False),
                 "balanced_accuracy_mean": float(metrics[:, 0].mean()),
-                "balanced_accuracy_sd": (
-                    float(metrics[:, 0].std(ddof=1)) if repeats > 1 else 0.0
-                ),
+                "balanced_accuracy_sd": float(metrics[:, 0].std(ddof=1))
+                if repeats > 1
+                else 0.0,
                 "macro_f1_mean": float(metrics[:, 1].mean()),
-                "macro_f1_sd": float(metrics[:, 1].std(ddof=1)) if repeats > 1 else 0.0,
+                "macro_f1_sd": float(metrics[:, 1].std(ddof=1))
+                if repeats > 1
+                else 0.0,
                 "top3_accuracy_mean": float(metrics[:, 2].mean()),
-                "top3_accuracy_sd": (
-                    float(metrics[:, 2].std(ddof=1)) if repeats > 1 else 0.0
-                ),
+                "top3_accuracy_sd": float(metrics[:, 2].std(ddof=1))
+                if repeats > 1
+                else 0.0,
                 "chance_balanced_accuracy": float(1 / len(encoder.classes_)),
             }
         )
@@ -432,6 +472,7 @@ def classification_evidence(
                         "subset": subset,
                         "level": level,
                         "repeat": repeat,
+                        "split_seed": split_audit[repeat]["used_seed"],
                         "label": label,
                         "recall": float(matrix[class_index, class_index]),
                     }
@@ -461,8 +502,12 @@ def classification_evidence(
                     "balanced_accuracy": float(
                         balanced_accuracy_score(permuted, predicted)
                     ),
-                    "macro_f1": float(f1_score(permuted, predicted, average="macro")),
-                    "top3_accuracy": top_k_accuracy(permuted, probabilities, 3),
+                    "macro_f1": float(
+                        f1_score(permuted, predicted, average="macro")
+                    ),
+                    "top3_accuracy": top_k_accuracy(
+                        permuted, probabilities, 3
+                    ),
                 }
             )
     summary = pd.DataFrame(summaries)
@@ -550,7 +595,9 @@ def bootstrap_leaf_distance(
                         ],
                         axis=0,
                     )
-                    for source in sorted(frame.loc[selected, "source_stem"].unique())
+                    for source in sorted(
+                        frame.loc[selected, "source_stem"].unique()
+                    )
                 ]
             )
             sampled = rng.choice(
@@ -558,7 +605,9 @@ def bootstrap_leaf_distance(
                 size=len(recording_prototypes),
                 replace=True,
             )
-            prototypes.append(np.median(recording_prototypes[sampled], axis=0))
+            prototypes.append(
+                np.median(recording_prototypes[sampled], axis=0)
+            )
         values.append(float(np.linalg.norm(prototypes[0] - prototypes[1])))
     return float(np.quantile(values, 0.025)), float(np.quantile(values, 0.975))
 
@@ -573,10 +622,14 @@ def variant_evidence(
     """比较14个主体—变体距离与同结构跨family叶桶距离。"""
     order = sorted(frame["leaf"].unique())
     prototypes = label_prototypes(fused, frame, "leaf", order)
-    distance = np.linalg.norm(prototypes[:, None, :] - prototypes[None, :, :], axis=2)
+    distance = np.linalg.norm(
+        prototypes[:, None, :] - prototypes[None, :, :], axis=2
+    )
     position = {label: index for index, label in enumerate(order)}
     family_by_leaf = (
-        frame[["leaf", "family", "structure"]].drop_duplicates().set_index("leaf")
+        frame[["leaf", "family", "structure"]]
+        .drop_duplicates()
+        .set_index("leaf")
     )
     cross_by_structure: dict[str, list[float]] = {}
     for structure in STRUCTURES:
@@ -586,7 +639,8 @@ def variant_evidence(
         cross_by_structure[structure] = [
             float(distance[position[left], position[right]])
             for left, right in combinations(leaves, 2)
-            if family_by_leaf.loc[left, "family"] != family_by_leaf.loc[right, "family"]
+            if family_by_leaf.loc[left, "family"]
+            != family_by_leaf.loc[right, "family"]
         ]
     rng = np.random.default_rng(seed)
     rows: list[dict] = []
@@ -621,7 +675,9 @@ def variant_evidence(
                     "main_variant_distance": observed,
                     "bootstrap_ci_low": low,
                     "bootstrap_ci_high": high,
-                    "cross_family_leaf_distance_median": float(np.median(cross)),
+                    "cross_family_leaf_distance_median": float(
+                        np.median(cross)
+                    ),
                     "cross_family_distance_percentile": float(
                         np.mean(cross <= observed)
                     ),
@@ -637,7 +693,9 @@ def variant_evidence(
     ):
         raise ValueError("14个变体family契约异常")
     successes = int(evidence["closer_than_cross_family_median"].sum())
-    test = binomtest(successes, n=len(evidence), p=0.5, alternative="greater")
+    test = binomtest(
+        successes, n=len(evidence), p=0.5, alternative="greater"
+    )
     summary = {
         "n_variant_families": EXPECTED_VARIANT_FAMILIES,
         "n_main_variant_pairs": int(len(evidence)),
@@ -651,10 +709,10 @@ def variant_evidence(
 
 
 def reused_pair_summary(pair_path: Path) -> tuple[pd.DataFrame, dict]:
-    """读取129对结构内证据并核对汇总计数。"""
+    """读取匹配当前taxonomy版本的结构内证据并核对计数。"""
     pairs = pd.read_csv(pair_path)
     if len(pairs) != EXPECTED_REUSED_PAIRS:
-        raise ValueError("结构内pair证据不是129对")
+        raise ValueError(f"结构内pair证据不是{EXPECTED_REUSED_PAIRS}对")
     counts = pairs["recommendation"].value_counts().to_dict()
     rows = pd.DataFrame(
         [
@@ -699,7 +757,9 @@ def save_figures(
     fig.savefig(figure_dir / "hierarchical_geometry.png", dpi=180)
     plt.close(fig)
 
-    full_classification = classification[classification["subset"].eq("all_2556")]
+    full_classification = classification[
+        classification["subset"].eq("all_2556")
+    ]
     fig, ax = plt.subplots(figsize=(8, 4.5))
     x = np.arange(len(full_classification))
     ax.bar(
@@ -757,7 +817,9 @@ def write_report(
     pair_counts: dict,
 ) -> None:
     """写出中文、论文可引用口径的内部验证报告。"""
-    full_geometry = geometry[geometry["subset"].eq("all_2556")].set_index("level")
+    full_geometry = geometry[geometry["subset"].eq("all_2556")].set_index(
+        "level"
+    )
     full_classification = classification[
         classification["subset"].eq("all_2556")
     ].set_index("level")
@@ -805,7 +867,7 @@ def write_report(
             "小于同结构跨family叶桶距离中位数；"
             f"距离百分位中位数={variant_summary['median_cross_family_distance_percentile']:.3f}，"
             f"符号检验p={variant_summary['sign_test_p_greater']:.4f}。",
-            f"- 既有129对结构内证据：保持分离{pair_counts.get('keep_separate', 0)}对，"
+            f"- 匹配版本的{EXPECTED_REUSED_PAIRS}对结构内证据：保持分离{pair_counts.get('keep_separate', 0)}对，"
             f"证据不足{pair_counts.get('insufficient_evidence', 0)}对，"
             f"边界重叠{pair_counts.get('local_boundary_overlap_review', 0)}对，"
             f"低支持合并复核{pair_counts.get('merge_evidence_review', 0)}对。",
@@ -827,6 +889,10 @@ def write_report(
 
 def run(args: argparse.Namespace) -> dict:
     """执行分析并以同级staging原子安装输出。"""
+    global EXPECTED_REUSED_PAIRS, TAXONOMY_PROFILE, SPLIT_FEASIBILITY_POLICY
+    SPLIT_FEASIBILITY_POLICY = getattr(args, "split_feasibility_policy", "strict")
+    TAXONOMY_PROFILE = getattr(args, "taxonomy_profile", "2556")
+    EXPECTED_REUSED_PAIRS = 127 if TAXONOMY_PROFILE == "2556-taxonomy-r2" else 129
     archive = args.archive_dir.resolve()
     run_dir = args.run_dir.resolve()
     classifier = args.classifier_dir.resolve()
@@ -843,14 +909,21 @@ def run(args: argparse.Namespace) -> dict:
         pair_dir / "analysis_metadata.json",
     ]
     input_hashes = {str(path): file_hash(path) for path in protected_paths}
-    assignments, features, patches, feature_names, feature_rows = load_analysis_inputs(
-        archive,
-        run_dir,
-        classifier,
-        expected_size=EXPECTED_SIZE,
-        expected_buckets=EXPECTED_LEAVES,
+    assignments, features, patches, feature_names, feature_rows = (
+        load_analysis_inputs(
+            archive,
+            run_dir,
+            classifier,
+            expected_size=EXPECTED_SIZE,
+            expected_buckets=EXPECTED_LEAVES,
+        )
     )
     assignments = add_taxonomy_columns(assignments)
+    if TAXONOMY_PROFILE == "2556-taxonomy-r2":
+        observed = assignments.groupby("structure").size().to_dict()
+        if observed != {"single": 1153, "double": 768, "triple": 635}:
+            raise ValueError(f"R2 SDT counts incorrect: {observed}")
+    print(f"taxonomy={TAXONOMY_PROFILE}: inputs validated, fitting views", flush=True)
     views, view_metadata = prepare_label_blind_views(
         features,
         patches,
@@ -860,6 +933,7 @@ def run(args: argparse.Namespace) -> dict:
     )
     view_metadata.pop("_models", None)
 
+    print("Computing all-cohort geometry", flush=True)
     all_geometry, all_bootstrap, all_geometry_null = geometry_evidence(
         assignments,
         views,
@@ -868,6 +942,7 @@ def run(args: argparse.Namespace) -> dict:
         n_permutations=args.geometry_permutations,
         seed=args.seed,
     )
+    print("Computing all-cohort repeated recording-blocked CV", flush=True)
     all_classification, all_recall, all_confusion, all_class_null = (
         classification_evidence(
             assignments,
@@ -880,6 +955,7 @@ def run(args: argparse.Namespace) -> dict:
         )
     )
 
+    print("Computing nonnoise sensitivity", flush=True)
     nonnoise_mask = assignments["micro_type"].ge(0).to_numpy()
     nonnoise = assignments.loc[nonnoise_mask].reset_index(drop=True)
     nonnoise_features = features[nonnoise_mask]
@@ -892,13 +968,15 @@ def run(args: argparse.Namespace) -> dict:
         pca_components=args.pca_components,
     )
     nonnoise_view_metadata.pop("_models", None)
-    nonnoise_geometry, nonnoise_bootstrap, nonnoise_geometry_null = geometry_evidence(
-        nonnoise,
-        nonnoise_views,
-        subset="micro_type_ge_0",
-        n_bootstrap=args.bootstrap,
-        n_permutations=args.geometry_permutations,
-        seed=args.seed + 100,
+    nonnoise_geometry, nonnoise_bootstrap, nonnoise_geometry_null = (
+        geometry_evidence(
+            nonnoise,
+            nonnoise_views,
+            subset="micro_type_ge_0",
+            n_bootstrap=args.bootstrap,
+            n_permutations=args.geometry_permutations,
+            seed=args.seed + 100,
+        )
     )
     (
         nonnoise_classification,
@@ -915,8 +993,12 @@ def run(args: argparse.Namespace) -> dict:
         seed=args.seed + 100,
     )
 
-    geometry = pd.concat([all_geometry, nonnoise_geometry], ignore_index=True)
-    bootstrap = pd.concat([all_bootstrap, nonnoise_bootstrap], ignore_index=True)
+    geometry = pd.concat(
+        [all_geometry, nonnoise_geometry], ignore_index=True
+    )
+    bootstrap = pd.concat(
+        [all_bootstrap, nonnoise_bootstrap], ignore_index=True
+    )
     geometry_null = pd.concat(
         [all_geometry_null, nonnoise_geometry_null], ignore_index=True
     )
@@ -946,15 +1028,21 @@ def run(args: argparse.Namespace) -> dict:
         ]
     ]
     sensitivity = sensitivity.merge(
-        all_classification[["level", "balanced_accuracy_mean", "macro_f1_mean"]],
+        all_classification[
+            ["level", "balanced_accuracy_mean", "macro_f1_mean"]
+        ],
         on="level",
     ).merge(
-        nonnoise_classification[["level", "balanced_accuracy_mean", "macro_f1_mean"]],
+        nonnoise_classification[
+            ["level", "balanced_accuracy_mean", "macro_f1_mean"]
+        ],
         on="level",
         suffixes=("_all", "_nonnoise"),
     )
     support = source_support_table(assignments)
-    family_labels, family_estimability = eligible_labels(assignments, "family")
+    family_labels, family_estimability = eligible_labels(
+        assignments, "family"
+    )
     leaf_labels, leaf_estimability = eligible_labels(assignments, "leaf")
     if len(family_labels) != 26 or len(leaf_labels) != 36:
         raise ValueError("26/27 family或36/41 leaf可估计子集契约异常")
@@ -976,10 +1064,18 @@ def run(args: argparse.Namespace) -> dict:
     staging.mkdir(parents=True)
     try:
         geometry.to_csv(staging / "hierarchical_geometry.csv", index=False)
-        bootstrap.to_csv(staging / "geometry_bootstrap_intervals.csv", index=False)
-        geometry_null.to_csv(staging / "geometry_permutation_null.csv", index=False)
-        classification.to_csv(staging / "classification_summary.csv", index=False)
-        recall.to_csv(staging / "classification_per_class_recall.csv", index=False)
+        bootstrap.to_csv(
+            staging / "geometry_bootstrap_intervals.csv", index=False
+        )
+        geometry_null.to_csv(
+            staging / "geometry_permutation_null.csv", index=False
+        )
+        classification.to_csv(
+            staging / "classification_summary.csv", index=False
+        )
+        recall.to_csv(
+            staging / "classification_per_class_recall.csv", index=False
+        )
         classification_null.to_csv(
             staging / "classification_permutation_null.csv", index=False
         )
@@ -995,9 +1091,15 @@ def run(args: argparse.Namespace) -> dict:
         leaf_estimability.to_csv(
             staging / "leaf_classification_estimability.csv", index=False
         )
-        sensitivity.to_csv(staging / "nonnoise_sensitivity.csv", index=False)
-        pair_table.to_csv(staging / "reused_129_pair_summary.csv", index=False)
-        save_figures(staging, geometry, classification, support, variant_table)
+        sensitivity.to_csv(
+            staging / "nonnoise_sensitivity.csv", index=False
+        )
+        pair_table.to_csv(
+            staging / f"reused_{EXPECTED_REUSED_PAIRS}_pair_summary.csv", index=False
+        )
+        save_figures(
+            staging, geometry, classification, support, variant_table
+        )
         write_report(
             staging / "report.md",
             geometry,
@@ -1013,6 +1115,8 @@ def run(args: argparse.Namespace) -> dict:
         metadata = {
             "created_at": datetime.now(timezone.utc).isoformat(),
             "analysis_type": "internal_only_hierarchical_validation",
+            "taxonomy_profile": TAXONOMY_PROFILE,
+            "split_feasibility_policy": SPLIT_FEASIBILITY_POLICY,
             "read_only": True,
             "archive": archive.name,
             "n_syllables": EXPECTED_SIZE,
@@ -1035,7 +1139,9 @@ def run(args: argparse.Namespace) -> dict:
                 "cv_repeats": args.cv_repeats,
                 "bootstrap": args.bootstrap,
                 "geometry_permutations": args.geometry_permutations,
-                "classification_permutations": (args.classification_permutations),
+                "classification_permutations": (
+                    args.classification_permutations
+                ),
             },
             "view_metadata": {
                 "all_2556": view_metadata,
@@ -1080,6 +1186,8 @@ def run(args: argparse.Namespace) -> dict:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--split-feasibility-policy", choices=["strict", "retry-seed"], default="strict")
+    parser.add_argument("--taxonomy-profile", choices=["2556", "2556-taxonomy-r2"], default="2556")
     parser.add_argument("--archive-dir", type=Path, required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--classifier-dir", type=Path, required=True)

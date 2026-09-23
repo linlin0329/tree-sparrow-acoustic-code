@@ -17,7 +17,7 @@ from ..io import digest, read_rows
 from ..schema import public_rows
 from .song_release_index import load_sources, assemble_index
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 DATA_VERSION = "1.0.0"
 RAW_FIELDS = [
     "raw_recording_id",

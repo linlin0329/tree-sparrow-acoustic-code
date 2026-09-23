@@ -46,7 +46,7 @@ def load_inputs(input_dir: Path | None):
 
     if input_dir is None:
         check_assets(DEFAULT_ASSETS)
-        directory = DEFAULT_ASSETS / "label_assessment/run"
+        directory = DEFAULT_ASSETS / "clustering/historical_run"
         rms_path = DEFAULT_ASSETS / "clustering/rms_energy.npy"
     else:
         directory = input_dir.resolve()
@@ -62,7 +62,7 @@ def load_inputs(input_dir: Path | None):
     rms = np.load(paths["rms"], allow_pickle=False)
     names = json.loads(paths["names"].read_text())
     expected_names = json.loads(
-        (DEFAULT_ASSETS / "label_assessment/run/feature_names.json").read_text()
+        (DEFAULT_ASSETS / "clustering/historical_run/feature_names.json").read_text()
     )
     require(
         features.ndim == 2 and features.shape == (len(rows), 105),

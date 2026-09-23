@@ -1,15 +1,20 @@
 # Eurasian tree sparrow acoustic dataset code
 
-The source package for version 1.0.0 is in [code/](code/README.md).
+The verified source package for version **1.0.1** is in [code/](code/README.md).
 For Chinese instructions, see [code/README.zh-CN.md](code/README.zh-CN.md).
 
-The code covers recording acquisition, data processing and six-figure
-reproduction. Field recordings are deposited separately.
+Version 1.0.1 corrects the former Triple05 family to Double and consistently
+renumbers related labels, validation inputs and figures. Original audio and
+syllable boundaries are unchanged. Current R1 assessment features remain
+separate from historical clustering inputs.
+
+The code covers acquisition, data processing and six-figure reproduction.
+Field recordings are deposited separately. The reserved Zenodo data and
+software identifiers are 10.5281/zenodo.22878786 and 10.5281/zenodo.22879603;
+the records and this Release remain drafts until the authors publish them.
 
 Original code uses MIT. Third-party and derived components, data assets,
-maps and fonts have separate terms in
+maps and fonts retain their terms in
 [THIRD_PARTY_NOTICES.md](code/THIRD_PARTY_NOTICES.md).
 
 Release assets provide the verified software ZIP and download checksums.
-The related data and software archive records will be linked here after
-repository identifiers are available.

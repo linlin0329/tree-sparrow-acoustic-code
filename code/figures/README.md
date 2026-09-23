@@ -1,6 +1,6 @@
 # Reproduce the six manuscript figures
 
-The figure component of code version **1.0.0** contains the drawing modules,
+The figure component of code version **1.0.1** contains the drawing modules,
 source tables, map layers, photograph and spectrogram arrays needed for six figures.
 Field audio is supplied in the separate data package.
 
@@ -43,3 +43,9 @@ are fixed by the supplied inputs. Tests: `python -m unittest discover -s tests -
 Original drawing code is MIT-licensed. Researcher data and the photograph use
 CC BY 4.0; external maps and fonts retain their own terms. See
 [licence and attribution](../THIRD_PARTY_NOTICES.md).
+
+The current Figure4 contains 14/6/7 families and 20/9/12 terminal categories
+for Single/Double/Triple. Figure5 retains its 12 original selected waveforms;
+its last panel now reads Triple family 05 (previously04). The separate
+27-example author selection does not replace the 12-panel manuscript figure
+in this release. Other figure media and STFT arrays are unchanged.

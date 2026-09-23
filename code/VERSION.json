@@ -1,6 +1,6 @@
 {
-  "name": "Eurasian tree sparrow code",
-  "version": "1.0.0",
-  "date": "2026-09-21",
-  "companion_package_version": "1.0.0"
+  "package_version": "1.0.1",
+  "data_version": "1.0.0",
+  "label_version": "sdt-taxonomy-r2-2026-09-24",
+  "assessment_boundary_version": "canonical2556-boundary-r1-2026-09-17"
 }

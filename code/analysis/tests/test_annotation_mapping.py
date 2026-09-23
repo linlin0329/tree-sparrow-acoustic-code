@@ -95,6 +95,19 @@ class AnnotationMappingTests(unittest.TestCase):
             manifest, mapping, design_name="synthetic-confirmed", canonical=False
         )
 
+    def test_explicit_structure_correction_updates_structure_and_family_together(self):
+        manifest, prior, mapping = self.fixture()
+        chosen = mapping.index[mapping["source_bucket_code"].eq("single_group_02")][0]
+        mapping.loc[chosen, ["action", "target_family_code", "target_bucket_code"]] = ["structure_reclassification", "double_group_06", "double_group_06"]
+        decisions = m.build_decision_audit(manifest, mapping, design_name="taxonomy-test", canonical=False)
+        changed = decisions.loc[decisions["pre_sdt_refined_bucket_code"].eq("single_group_02")].iloc[0]
+        self.assertEqual(changed["syllable_structure"], "double")
+        self.assertEqual(changed["final_group_code"], "double_group_06")
+        self.assertEqual(changed["sdt_refined_decision"], "author_corrected_structure")
+        mapping.loc[chosen, "action"] = "family_renumber"
+        with self.assertRaisesRegex(ValueError, "explicit structure_reclassification"):
+            m.build_decision_audit(manifest, mapping, design_name="wrong-action", canonical=False)
+
     def test_delete_merge_renumber_and_variant_keep_identity_without_deduplication(
         self,
     ):

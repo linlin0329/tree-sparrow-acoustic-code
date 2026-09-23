@@ -1,6 +1,8 @@
-"""Public metadata schema for release 1.0.0."""
+"""Public metadata schema for release 1.0.1."""
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
+DATA_VERSION = "1.0.0"
+LABEL_VERSION = "sdt-taxonomy-r2-2026-09-24"
 OMIT_FIELDS = {
     "song_recordings.csv": {
         "historical_confirmation_evidence",
@@ -17,7 +19,7 @@ def public_rows(name, rows):
     omitted = OMIT_FIELDS.get(name, set())
     return [
         {
-            key: VERSION if key in {"data_version", "label_version"} else value
+            key: DATA_VERSION if key == "data_version" else LABEL_VERSION if key == "label_version" else value
             for key, value in row.items()
             if key not in omitted
         }

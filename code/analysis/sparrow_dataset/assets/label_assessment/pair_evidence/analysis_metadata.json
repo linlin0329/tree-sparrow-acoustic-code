@@ -1,10 +1,13 @@
 {
+  "created_at": "2026-09-23T18:07:02.798453+00:00",
+  "archive": "release",
+  "profile": "2556-taxonomy-r2",
   "analysis_scope": "within_structure_only",
   "variant_policy": "merge_leaf_variants_by_final_group_code",
   "n_syllables": 2556,
   "n_leaf_buckets": 41,
   "n_merged_groups": 27,
-  "n_pairs": 129,
+  "n_pairs": 127,
   "structure_counts": {
     "single": {
       "n_syllables": 1153,
@@ -12,14 +15,14 @@
       "n_pairs": 91
     },
     "double": {
-      "n_syllables": 694,
-      "n_groups": 5,
-      "n_pairs": 10
+      "n_syllables": 768,
+      "n_groups": 6,
+      "n_pairs": 15
     },
     "triple": {
-      "n_syllables": 709,
-      "n_groups": 8,
-      "n_pairs": 28
+      "n_syllables": 635,
+      "n_groups": 7,
+      "n_pairs": 21
     }
   },
   "thresholds": {
@@ -45,7 +48,7 @@
       "n_merged_groups": 14,
       "n_pairs": 91,
       "n_recordings": 124,
-      "n_microtype_noise": 295,
+      "n_microtype_noise": 294,
       "group_order": [
         "single_group_01",
         "single_group_02",
@@ -163,23 +166,23 @@
           "zcr_std"
         ],
         "pca_components_per_view": 30,
-        "perceptual_pca_explained_variance": 0.8062930107116699,
-        "logmel_pca_explained_variance": 0.7189364433288574,
+        "perceptual_pca_explained_variance": 0.8062835931777954,
+        "logmel_pca_explained_variance": 0.7189540266990662,
         "fusion": "equal_dimension_normalized_concatenation"
       },
       "global_metrics": {
-        "silhouette_fused": 0.01821917069840881,
+        "silhouette_fused": 0.018458108721579998,
         "composite_permutation": {
-          "observed_between_within_ratio": 1.1907902974735212,
-          "null_mean": 0.9988924130932348,
-          "null_std": 0.017855963613566197,
+          "observed_between_within_ratio": 1.1910902392331824,
+          "null_mean": 0.9989749715439714,
+          "null_std": 0.017826560747155166,
           "p_greater": 0.000999000999000999,
           "n_permutations": 1000
         },
         "distance_rank_spearman": {
-          "94d_vs_logmel": 0.7303870043000478,
-          "94d_vs_fused": 0.8182035355948399,
-          "fused_vs_nonnoise_composite": 0.8463290332855552
+          "94d_vs_logmel": 0.7295269947443861,
+          "94d_vs_fused": 0.8190953973562671,
+          "fused_vs_nonnoise_composite": 0.8452460582895366
         }
       },
       "recommendation_counts": {
@@ -190,20 +193,21 @@
     },
     "double": {
       "syllable_structure": "double",
-      "n_syllables": 694,
-      "n_leaf_buckets": 8,
-      "n_merged_groups": 5,
-      "n_pairs": 10,
-      "n_recordings": 121,
-      "n_microtype_noise": 177,
+      "n_syllables": 768,
+      "n_leaf_buckets": 9,
+      "n_merged_groups": 6,
+      "n_pairs": 15,
+      "n_recordings": 124,
+      "n_microtype_noise": 190,
       "group_order": [
         "double_group_01",
         "double_group_02",
         "double_group_03",
         "double_group_04",
-        "double_group_05"
+        "double_group_05",
+        "double_group_06"
       ],
-      "adaptive_bootstrap_cluster_cut": 2,
+      "adaptive_bootstrap_cluster_cut": 3,
       "view_metadata": {
         "label_blind": true,
         "perceptual_feature_count": 94,
@@ -304,38 +308,38 @@
           "zcr_std"
         ],
         "pca_components_per_view": 30,
-        "perceptual_pca_explained_variance": 0.8282483816146851,
-        "logmel_pca_explained_variance": 0.6663931608200073,
+        "perceptual_pca_explained_variance": 0.8233681917190552,
+        "logmel_pca_explained_variance": 0.671515166759491,
         "fusion": "equal_dimension_normalized_concatenation"
       },
       "global_metrics": {
-        "silhouette_fused": 0.0350038146920052,
+        "silhouette_fused": 0.03568531793666321,
         "composite_permutation": {
-          "observed_between_within_ratio": 1.0717169099677963,
-          "null_mean": 0.9988786418983109,
-          "null_std": 0.01757167650563662,
+          "observed_between_within_ratio": 1.1034451595944694,
+          "null_mean": 0.9992196153862365,
+          "null_std": 0.015659079978862425,
           "p_greater": 0.000999000999000999,
           "n_permutations": 1000
         },
         "distance_rank_spearman": {
-          "94d_vs_logmel": 0.8545454545454544,
-          "94d_vs_fused": 0.9393939393939393,
-          "fused_vs_nonnoise_composite": 0.9393939393939393
+          "94d_vs_logmel": 0.8178571428571428,
+          "94d_vs_fused": 0.8357142857142855,
+          "fused_vs_nonnoise_composite": 0.9964285714285712
         }
       },
       "recommendation_counts": {
-        "keep_separate": 9,
+        "keep_separate": 14,
         "local_boundary_overlap_review": 1
       }
     },
     "triple": {
       "syllable_structure": "triple",
-      "n_syllables": 709,
-      "n_leaf_buckets": 13,
-      "n_merged_groups": 8,
-      "n_pairs": 28,
-      "n_recordings": 122,
-      "n_microtype_noise": 113,
+      "n_syllables": 635,
+      "n_leaf_buckets": 12,
+      "n_merged_groups": 7,
+      "n_pairs": 21,
+      "n_recordings": 119,
+      "n_microtype_noise": 100,
       "group_order": [
         "triple_group_01",
         "triple_group_02",
@@ -343,10 +347,9 @@
         "triple_group_04",
         "triple_group_05",
         "triple_group_06",
-        "triple_group_07",
-        "triple_group_08"
+        "triple_group_07"
       ],
-      "adaptive_bootstrap_cluster_cut": 4,
+      "adaptive_bootstrap_cluster_cut": 3,
       "view_metadata": {
         "label_blind": true,
         "perceptual_feature_count": 94,
@@ -447,37 +450,47 @@
           "zcr_std"
         ],
         "pca_components_per_view": 30,
-        "perceptual_pca_explained_variance": 0.8458882570266724,
-        "logmel_pca_explained_variance": 0.662653923034668,
+        "perceptual_pca_explained_variance": 0.8491665720939636,
+        "logmel_pca_explained_variance": 0.6608490943908691,
         "fusion": "equal_dimension_normalized_concatenation"
       },
       "global_metrics": {
-        "silhouette_fused": -0.02510002284917003,
+        "silhouette_fused": -0.02225052388066497,
         "composite_permutation": {
-          "observed_between_within_ratio": 1.0736745552101694,
-          "null_mean": 1.0006887979111283,
-          "null_std": 0.018816830081130314,
-          "p_greater": 0.000999000999000999,
+          "observed_between_within_ratio": 1.0606191722452651,
+          "null_mean": 0.9995725609689282,
+          "null_std": 0.0222242533356061,
+          "p_greater": 0.004995004995004995,
           "n_permutations": 1000
         },
         "distance_rank_spearman": {
-          "94d_vs_logmel": 0.8182813355227148,
-          "94d_vs_fused": 0.8877941981390256,
-          "fused_vs_nonnoise_composite": 0.6929392446633825
+          "94d_vs_logmel": 0.8259740259740259,
+          "94d_vs_fused": 0.8766233766233766,
+          "fused_vs_nonnoise_composite": 0.735064935064935
         }
       },
       "recommendation_counts": {
-        "keep_separate": 19,
-        "merge_evidence_review": 7,
+        "keep_separate": 13,
+        "merge_evidence_review": 6,
         "local_boundary_overlap_review": 2
       }
     }
   },
   "recommendation_counts": {
-    "keep_separate": 102,
+    "keep_separate": 101,
     "insufficient_evidence": 13,
     "local_boundary_overlap_review": 7,
-    "merge_evidence_review": 7
+    "merge_evidence_review": 6
   },
-  "feature_row_indices_sha256": "4aafeb9f3b5db0a990fffd55ce23b897be3fbd3933ebe57271785937d966bd47"
+  "feature_row_indices_sha256": "4aafeb9f3b5db0a990fffd55ce23b897be3fbd3933ebe57271785937d966bd47",
+  "input_sha256": {
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/manifest.csv": "873ea0d151b69bc5df4e90c22e6fec13eb0d5da7e8ff6d6c4f5e82e4d5f365b2",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/summary.json": "68e445acaafa2645a14e5006a505c4ea82467693fac27677575181aba8d8eb4b",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/taxonomy_crosswalk.csv": "83642c61106d08a80af621234ae9a9054332bad65b415e1368849dec035eba32",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/family_order.csv": "5ee1e3056d1e7698e943370665e019f2c28ad733c0f52b20c12780ddd5511ad8",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/feature_rows.csv": "b16284b8bc7a984e13c516506464df731653e8a13aada3d5557d15dd1ea9dc01",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/features_105d.npy": "171a12b63fd0b1fc59c43b8a06f962a4ea83e5d77ae500586b82341587b707aa",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/feature_names.json": "73bc2f6ff46a5298c9910724be2d0def231b1cd164009ce77ccced663b795f46",
+    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/syllable_logmel_patches.npy": "1af425461b67cabab17f0e07b2422cb3f9fe22636d6f1baeb476ba1fa4b50b50"
+  }
 }

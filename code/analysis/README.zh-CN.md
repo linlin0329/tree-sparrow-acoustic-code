@@ -1,4 +1,4 @@
-# 树麻雀声学数据工具 1.0.0
+# 树麻雀声学数据工具 1.0.1
 
 原创代码采用 [MIT 许可](LICENSE)，配套数值输入采用 [CC BY 4.0](ASSET_LICENSE.md)。
 科学环境按 Python 3.10 与 `requirements-observed.txt` 安装；采集和绘图组件分别使用自己的环境。
@@ -35,3 +35,7 @@ sparrow-data assessment inspect
 
 完整参数和可直接修改路径的示例见 [English README](README.md)。
 回归检查：`python -m unittest discover -s tests -q`。
+
+本版本默认标签评估对应R1边界＋R2分类，使用127对结构内family参照；`retry-seed`仅处理训练折类别覆盖可行性，完整记录试种子及train/test成员。人工精炼stage的输入仍是历史43叶、2560音节；新增`structure_reclassification`明确迁移74条，且同步结构和family字段。其旧研究边界不替换R1改界。包内保留历史map供追溯，默认当前map为R2。
+
+历史聚类改从独立的`assets/clustering/historical_run/`读取原2893行，与原RMS一一匹配；当前R1标签评估数组不覆盖该历史输入。两套原始/改界特征的用途分别标明。
