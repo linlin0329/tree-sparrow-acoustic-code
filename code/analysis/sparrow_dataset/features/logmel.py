@@ -1,4 +1,4 @@
-"""Historical 64 by 32 standardized log-mel patch calculation."""
+"""64 by 32 standardized log-mel patch calculation for the supplied inputs."""
 
 from __future__ import annotations
 import librosa

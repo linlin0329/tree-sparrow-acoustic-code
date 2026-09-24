@@ -39,9 +39,9 @@ EXPECTED_SIZE = 2556
 EXPECTED_FAMILIES = 27
 EXPECTED_LEAVES = 41
 EXPECTED_VARIANT_FAMILIES = 14
-EXPECTED_REUSED_PAIRS = 129
-TAXONOMY_PROFILE = "2556"
-SPLIT_FEASIBILITY_POLICY = "strict"
+EXPECTED_REUSED_PAIRS = 127
+TAXONOMY_PROFILE = "canonical2556"
+SPLIT_FEASIBILITY_POLICY = "retry-seed"
 STRUCTURES = ("single", "double", "triple")
 STEM_RE = re.compile(
     r"^(?P<site>[a-z]+)_(?P<date>\d{4}-\d{2}-\d{2})-birdnet-"
@@ -889,10 +889,10 @@ def write_report(
 
 def run(args: argparse.Namespace) -> dict:
     """执行分析并以同级staging原子安装输出。"""
-    global EXPECTED_REUSED_PAIRS, TAXONOMY_PROFILE, SPLIT_FEASIBILITY_POLICY
-    SPLIT_FEASIBILITY_POLICY = getattr(args, "split_feasibility_policy", "strict")
-    TAXONOMY_PROFILE = getattr(args, "taxonomy_profile", "2556")
-    EXPECTED_REUSED_PAIRS = 127 if TAXONOMY_PROFILE == "2556-taxonomy-r2" else 129
+    global SPLIT_FEASIBILITY_POLICY
+    SPLIT_FEASIBILITY_POLICY = getattr(args, "split_feasibility_policy", "retry-seed")
+    if getattr(args, "taxonomy_profile", TAXONOMY_PROFILE) != TAXONOMY_PROFILE:
+        raise ValueError(f"Only the released taxonomy profile is supported: {TAXONOMY_PROFILE}")
     archive = args.archive_dir.resolve()
     run_dir = args.run_dir.resolve()
     classifier = args.classifier_dir.resolve()
@@ -919,10 +919,9 @@ def run(args: argparse.Namespace) -> dict:
         )
     )
     assignments = add_taxonomy_columns(assignments)
-    if TAXONOMY_PROFILE == "2556-taxonomy-r2":
-        observed = assignments.groupby("structure").size().to_dict()
-        if observed != {"single": 1153, "double": 768, "triple": 635}:
-            raise ValueError(f"R2 SDT counts incorrect: {observed}")
+    observed = assignments.groupby("structure").size().to_dict()
+    if observed != {"single": 1153, "double": 768, "triple": 635}:
+        raise ValueError(f"Released SDT counts incorrect: {observed}")
     print(f"taxonomy={TAXONOMY_PROFILE}: inputs validated, fitting views", flush=True)
     views, view_metadata = prepare_label_blind_views(
         features,
@@ -1186,8 +1185,8 @@ def run(args: argparse.Namespace) -> dict:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--split-feasibility-policy", choices=["strict", "retry-seed"], default="strict")
-    parser.add_argument("--taxonomy-profile", choices=["2556", "2556-taxonomy-r2"], default="2556")
+    parser.add_argument("--split-feasibility-policy", choices=["strict", "retry-seed"], default="retry-seed")
+    parser.add_argument("--taxonomy-profile", choices=[TAXONOMY_PROFILE], default=TAXONOMY_PROFILE)
     parser.add_argument("--archive-dir", type=Path, required=True)
     parser.add_argument("--run-dir", type=Path, required=True)
     parser.add_argument("--classifier-dir", type=Path, required=True)

@@ -1,8 +1,8 @@
-"""Public metadata schema for release 1.0.1."""
+"""Public metadata schema for release 1.0.0."""
 
-VERSION = "1.0.1"
+VERSION = "1.0.0"
 DATA_VERSION = "1.0.0"
-LABEL_VERSION = "sdt-taxonomy-r2-2026-09-24"
+LABEL_VERSION = "1.0.0"
 OMIT_FIELDS = {
     "song_recordings.csv": {
         "historical_confirmation_evidence",

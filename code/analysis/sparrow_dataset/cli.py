@@ -9,7 +9,6 @@ import sys
 from pathlib import Path
 
 STAGES = {
-    "reviewed-labels": "annotation.archive",
     "cluster": "cluster",
     "mp3-assessment": "assessments.mp3_assessment",
     "inventory-audit": "processing.inventory_audit",
@@ -92,7 +91,7 @@ def main(argv: list[str] | None = None) -> None:
             )
         else:
             if args.output_dir is None:
-                ap.error("Historical replay requires --output-dir")
+                ap.error("Assessment requires --output-dir")
             report = replay(
                 args.task,
                 args.assets.resolve(),

@@ -1,4 +1,4 @@
-"""Historical all-segment recording aggregation; no label inference."""
+"""All-segment recording aggregation from matched inputs; no label inference."""
 
 import pandas as pd
 

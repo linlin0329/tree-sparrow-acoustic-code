@@ -10,10 +10,10 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.preprocessing import RobustScaler, StandardScaler
 
-EXPECTED_SIZE = 2560
+EXPECTED_SIZE = 2556
 
 
-EXPECTED_BUCKETS = 43
+EXPECTED_BUCKETS = 41
 
 
 EXPECTED_FEATURE_ROWS = 2893

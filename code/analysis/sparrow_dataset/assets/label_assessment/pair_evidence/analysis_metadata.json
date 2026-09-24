@@ -1,7 +1,7 @@
 {
   "created_at": "2026-09-23T18:07:02.798453+00:00",
   "archive": "release",
-  "profile": "2556-taxonomy-r2",
+  "profile": "canonical2556",
   "analysis_scope": "within_structure_only",
   "variant_policy": "merge_leaf_variants_by_final_group_code",
   "n_syllables": 2556,
@@ -483,14 +483,15 @@
     "merge_evidence_review": 6
   },
   "feature_row_indices_sha256": "4aafeb9f3b5db0a990fffd55ce23b897be3fbd3933ebe57271785937d966bd47",
-  "input_sha256": {
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/manifest.csv": "873ea0d151b69bc5df4e90c22e6fec13eb0d5da7e8ff6d6c4f5e82e4d5f365b2",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/summary.json": "68e445acaafa2645a14e5006a505c4ea82467693fac27677575181aba8d8eb4b",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/taxonomy_crosswalk.csv": "83642c61106d08a80af621234ae9a9054332bad65b415e1368849dec035eba32",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/release/family_order.csv": "5ee1e3056d1e7698e943370665e019f2c28ad733c0f52b20c12780ddd5511ad8",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/feature_rows.csv": "b16284b8bc7a984e13c516506464df731653e8a13aada3d5557d15dd1ea9dc01",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/features_105d.npy": "171a12b63fd0b1fc59c43b8a06f962a4ea83e5d77ae500586b82341587b707aa",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/feature_names.json": "73bc2f6ff46a5298c9910724be2d0def231b1cd164009ce77ccced663b795f46",
-    "source_repository/Drafts/DatasetPaper/dataset/taxonomy_revision_2026-09-24/features/release/syllable_logmel_patches.npy": "1af425461b67cabab17f0e07b2422cb3f9fe22636d6f1baeb476ba1fa4b50b50"
+  "label_version": "1.0.0",
+  "data_version": "1.0.0",
+  "distributed_input_root": "analysis/sparrow_dataset/assets/",
+  "distributed_input_sha256": {
+    "label_assessment/archive/manifest.csv": "d170c4e9dd7a5062a30568bf93ef347c826b03e81cc7d9cc62a4923a55877cc8",
+    "label_assessment/archive/summary.json": "b981e6d20386df671d0fa867c40c531f4d54f9390a32a220e22bf9767af3d069",
+    "label_assessment/run/feature_rows.csv": "b547924db5e7cc845590819e490c38810d292d579b699b83dacd7997c6d68bca",
+    "label_assessment/run/features_105d.npy": "171a12b63fd0b1fc59c43b8a06f962a4ea83e5d77ae500586b82341587b707aa",
+    "label_assessment/run/feature_names.json": "73bc2f6ff46a5298c9910724be2d0def231b1cd164009ce77ccced663b795f46",
+    "label_assessment/classifier/syllable_logmel_patches.npy": "1af425461b67cabab17f0e07b2422cb3f9fe22636d6f1baeb476ba1fa4b50b50"
   }
 }

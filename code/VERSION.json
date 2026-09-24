@@ -1,6 +1,8 @@
 {
-  "package_version": "1.0.2",
+  "package_version": "1.0.0",
   "data_version": "1.0.0",
-  "label_version": "sdt-taxonomy-r2-2026-09-24",
-  "assessment_boundary_version": "canonical2556-boundary-r1-2026-09-17"
+  "label_version": "1.0.0",
+  "assessment_boundary_version": "1.0.0",
+  "compatible_data_package_version": "1.0.0",
+  "assessment_boundary_basis": "released_integer_frames"
 }

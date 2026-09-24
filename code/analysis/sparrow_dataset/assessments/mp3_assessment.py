@@ -172,7 +172,7 @@ def run(fixtures: Path, out: Path):
             color=c,
         )
     axs[1].set(
-        xlabel="Historical WAV sample ID",
+        xlabel="Reference WAV sample ID",
         ylabel="Signal-to-compression-error ratio (dB)",
         title=f"{len(real)} fixture clips: higher values mean smaller waveform error",
     )
@@ -258,7 +258,7 @@ def validate_fixtures(fixtures: Path) -> dict:
         require(
             info.samplerate == contract["sample_rate_hz"]
             and info.channels == contract["channels"],
-            "Historical MP3 measurement assumes native 48 kHz mono inputs",
+            "MP3 assessment requires native 48 kHz mono inputs",
         )
         require(
             info.frames > 4800,
@@ -308,7 +308,7 @@ def compare_reference(actual, expected, *, rtol=1e-10, atol=1e-8) -> dict:
             require(
                 (math.isnan(left) and math.isnan(right))
                 or math.isclose(left, right, rel_tol=rtol, abs_tol=atol),
-                f"Historical numeric reference differs at {path}: {left!r} vs {right!r}",
+                f"Matched numeric reference differs at {path}: {left!r} vs {right!r}",
             )
             report["numeric_values"] += 1
             if math.isfinite(left) and math.isfinite(right):
@@ -318,7 +318,7 @@ def compare_reference(actual, expected, *, rtol=1e-10, atol=1e-8) -> dict:
         else:
             require(
                 left == right,
-                f"Historical reference differs at {path}: {left!r} vs {right!r}",
+                f"Matched reference differs at {path}: {left!r} vs {right!r}",
             )
             if isinstance(right, int) and not isinstance(right, bool):
                 report["numeric_values"] += 1

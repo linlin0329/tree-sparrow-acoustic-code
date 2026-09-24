@@ -90,7 +90,7 @@ def extract_features(
         ]
         processor = AudioProcessor(config)
         names = processor.get_feature_names()
-        require(len(names) == 105, "Historical feature-name contract changed")
+        require(len(names) == 105, "Matched feature-name contract changed")
     elif kind == "logmel":
         from .features.logmel import log_mel_patch
 

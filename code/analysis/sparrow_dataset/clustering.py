@@ -442,29 +442,29 @@ def select_robust(
 
 
 def compare_assignments(
-    legacy: pd.DataFrame,
+    embedding_2d: pd.DataFrame,
     robust: pd.DataFrame,
     output_dir: Path,
 ) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    merged = legacy[["stable_id", "micro_type", "micro_confidence"]].merge(
+    merged = embedding_2d[["stable_id", "micro_type", "micro_confidence"]].merge(
         robust[["stable_id", "micro_type", "micro_confidence"]],
         on="stable_id",
-        suffixes=("_legacy", "_robust"),
+        suffixes=("_embedding_2d", "_robust"),
         validate="one_to_one",
     )
     comparable = merged[
-        (merged["micro_type_legacy"] >= 0) & (merged["micro_type_robust"] >= 0)
+        (merged["micro_type_embedding_2d"] >= 0) & (merged["micro_type_robust"] >= 0)
     ]
     metrics = {
-        "n_legacy": len(legacy),
+        "n_embedding_2d": len(embedding_2d),
         "n_robust": len(robust),
         "n_common": len(merged),
         "n_common_non_noise": len(comparable),
         "ari_non_noise": (
             float(
                 adjusted_rand_score(
-                    comparable["micro_type_legacy"],
+                    comparable["micro_type_embedding_2d"],
                     comparable["micro_type_robust"],
                 )
             )
@@ -474,7 +474,7 @@ def compare_assignments(
         "nmi_non_noise": (
             float(
                 normalized_mutual_info_score(
-                    comparable["micro_type_legacy"],
+                    comparable["micro_type_embedding_2d"],
                     comparable["micro_type_robust"],
                 )
             )
@@ -484,18 +484,18 @@ def compare_assignments(
     }
     merged.to_csv(output_dir / "common_syllable_assignments.csv", index=False)
     pd.crosstab(
-        comparable["micro_type_legacy"],
+        comparable["micro_type_embedding_2d"],
         comparable["micro_type_robust"],
     ).to_csv(output_dir / "cluster_crosswalk_counts.csv")
 
     crosswalk = pd.crosstab(
-        comparable["micro_type_legacy"],
+        comparable["micro_type_embedding_2d"],
         comparable["micro_type_robust"],
     )
     correspondence_rows = []
     for source_mode, matrix in [
-        ("legacy_to_robust", crosswalk),
-        ("robust_to_legacy", crosswalk.T),
+        ("embedding_2d_to_robust", crosswalk),
+        ("robust_to_embedding_2d", crosswalk.T),
     ]:
         for source_cluster, counts in matrix.iterrows():
             nonzero = counts[counts > 0].sort_values(ascending=False)
@@ -523,7 +523,7 @@ def compare_assignments(
     )
 
     side_by_side = merged.copy()
-    side_by_side["legacy_concat_wav"] = side_by_side["micro_type_legacy"].map(
+    side_by_side["embedding_2d_concat_wav"] = side_by_side["micro_type_embedding_2d"].map(
         lambda value: (
             f"../embedding_2d/micro_review/concatenated_review/"
             f"{'Noise' if value == -1 else f'Micro_{int(value):03d}'}_concat.wav"

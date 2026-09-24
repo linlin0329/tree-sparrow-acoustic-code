@@ -71,6 +71,33 @@ class ClusteringTests(unittest.TestCase):
             clustering.rank_robust_candidates(result).iloc[0].median_clusters, 2
         )
 
+    def test_method_comparison_preserves_correspondence_with_explicit_mode_names(self):
+        first = pd.DataFrame(
+            {"stable_id": ["a", "b", "c", "d", "noise"],
+             "micro_type": [0, 0, 1, 1, -1],
+             "micro_confidence": [0.9, 0.9, 0.8, 0.8, 0.0]}
+        )
+        second = first.copy()
+        second["micro_type"] = [8, 8, 3, 3, -1]
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "comparison"
+            clustering.compare_assignments(first, second, output)
+            metrics = json.loads((output / "comparison_metrics.json").read_text())
+            self.assertEqual(metrics["n_embedding_2d"], 5)
+            self.assertEqual(metrics["n_common_non_noise"], 4)
+            self.assertEqual(metrics["ari_non_noise"], 1.0)
+            self.assertEqual(metrics["nmi_non_noise"], 1.0)
+            assignments = pd.read_csv(output / "common_syllable_assignments.csv")
+            self.assertEqual(assignments["stable_id"].tolist(), first["stable_id"].tolist())
+            self.assertEqual(assignments["micro_type_embedding_2d"].tolist(), first["micro_type"].tolist())
+            correspondence = pd.read_csv(output / "cluster_correspondence_summary.csv")
+            self.assertEqual(set(correspondence["direction"]), {"embedding_2d_to_robust", "robust_to_embedding_2d"})
+            self.assertTrue(correspondence["best_overlap_fraction"].eq(1.0).all())
+            review = pd.read_csv(output / "side_by_side_review_index.csv")
+            self.assertTrue(review["embedding_2d_concat_wav"].str.startswith("../embedding_2d/").all())
+            self.assertTrue(review["robust_concat_wav"].str.startswith("../robust_hd/").all())
+            self.assertFalse(any("legacy" in column for column in review.columns))
+
     def test_candidate_assignments_preserve_original_row_identity(self):
         rows = pd.DataFrame(
             {

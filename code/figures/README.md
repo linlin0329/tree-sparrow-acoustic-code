@@ -1,10 +1,10 @@
 # Reproduce the six manuscript figures
 
-The figure component of code version **1.0.2** contains the drawing modules,
+The figure component of code version **1.0.0** contains the drawing modules,
 source tables, map layers, photograph and spectrogram arrays needed for six figures.
-Use it with data package **1.0.1**, which supplies the field audio. The waveform/
-coordinate version remains 1.0.0 and the label version remains
-`sdt-taxonomy-r2-2026-09-24`.
+Use it with data package **1.0.0**, which supplies the field audio. The waveform/
+coordinate identifier is 1.0.0 and the label identifier is
+`1.0.0`.
 
 ## Run
 
@@ -39,8 +39,8 @@ below the grid. The time scale bar does not change the 0–0.7 s display window;
 spacing between examples is for layout, not natural song timing.
 
 Both spectrogram figures use 0–16 kHz and −45 to 0 dB relative to each panel's
-peak within the displayed frequency band. Figure 6 keeps the original two
-Single 08 examples and its 0–0.4 s window. The input checker re-extracts 29
+peak within the displayed frequency band. Figure 6 shows the two
+Single 08 examples within a 0–0.4 s window. The input checker re-extracts 29
 unique examples (27 for Figure 5 and 2 for Figure 6) from analysis WAVs and
 compares them with the supplied STFT arrays (zero relative tolerance; absolute
 tolerance 1e-10 dB). Input checking also verifies the
@@ -55,8 +55,6 @@ Original drawing code is MIT-licensed. Researcher data and the photograph use
 CC BY 4.0; external maps and fonts retain their own terms. See
 [licence and attribution](../THIRD_PARTY_NOTICES.md).
 
-Figure 4 retains 14/6/7 families and 20/9/12 terminal categories for
-Single/Double/Triple. Version 1.0.2 replaces the earlier 12-example Figure 5
-with the 27-example layout described above. The underlying audio and label
-metadata continue to come from data package 1.0.1; their waveform/coordinate
-and label versions are unchanged. Figure 6 remains the original pair.
+Figure 4 presents 14/6/7 families and 20/9/12 terminal categories for
+Single/Double/Triple. Figures 5 and 6 use the supplied analysis WAVs and their
+labels; the numerical source data and input checks specify each example.

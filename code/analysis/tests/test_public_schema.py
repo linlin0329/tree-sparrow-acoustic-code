@@ -21,7 +21,7 @@ class PublicSchemaTests(unittest.TestCase):
         }
         result = public_rows("syllables.csv", [source])[0]
         self.assertEqual(result["data_version"], "1.0.0")
-        self.assertEqual(result["label_version"], "sdt-taxonomy-r2-2026-09-24")
+        self.assertEqual(result["label_version"], "1.0.0")
         self.assertNotIn("boundary_status", result)
         self.assertNotIn("supersedes_syllable_id", result)
         for key in (

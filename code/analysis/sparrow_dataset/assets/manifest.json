@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.0",
   "licence": "CC-BY-4.0",
   "files": [
     {
@@ -8,42 +8,22 @@
       "sha256": "4b6c6a2f830e24adccd737451a67ef4d6fbfecf7b80e6e7600af4b966b77ca99"
     },
     {
-      "path": "annotation_refinement/base_manifest.csv",
-      "size_bytes": 1184326,
-      "sha256": "aa9f3d29c0ded74f90808dc521a77c18cce648bc36d9efe5879bc70a9eb6fab4"
-    },
-    {
-      "path": "annotation_refinement/leaf_mapping.csv",
-      "size_bytes": 4634,
-      "sha256": "7e5a58eaa55b93dcb3c6f8ada091a4a515548650aef0b5f89f780999135c2912"
-    },
-    {
-      "path": "annotation_refinement/leaf_mapping_historical_1.0.0.csv",
-      "size_bytes": 4579,
-      "sha256": "076d69d23c7fba1f8fc3ac61d56ce4120230df84cc34edc90a937e9a40b92474"
-    },
-    {
-      "path": "annotation_refinement/prior_audit.csv",
-      "size_bytes": 1197970,
-      "sha256": "8f8ad17e843b63e42e1ba4e0eae333209817641c4ccabf23202972acf7c65ee1"
-    },
-    {
       "path": "clustering/feature_definition.json",
       "size_bytes": 2622,
       "sha256": "fc14b127d6a370b728e7dc277c9fef43cf914534c18169f6ae5f3217c440332a"
     },
     {
-      "path": "clustering/historical_run/feature_names.json",
+      "path": "clustering/candidate_inputs/feature_names.json",
       "size_bytes": 2162,
       "sha256": "79dded3640d656b8bccc52842932aa81a03d6cefa7f19f0c72dea56cd2a8c146"
     },
     {
-      "path": "clustering/historical_run/feature_rows.csv",
+      "path": "clustering/candidate_inputs/feature_rows.csv",
       "size_bytes": 651581,
       "sha256": "22989121e487b649bab03464504f62c74d4fe96352ef821068cb6c6d8894edf4"
     },
     {
-      "path": "clustering/historical_run/features_105d.npy",
+      "path": "clustering/candidate_inputs/features_105d.npy",
       "size_bytes": 1215188,
       "sha256": "cb848f830a2b6b6f50d7f6e12fe123477f62318bc34b4b8584728b243901325d"
     },
@@ -59,13 +39,13 @@
     },
     {
       "path": "label_assessment/archive/manifest.csv",
-      "size_bytes": 1307584,
-      "sha256": "e8afcd848d492be463a19ccbc3b2f2007eabb52067c1f476aae7d327d4a59cb0"
+      "size_bytes": 1253908,
+      "sha256": "d170c4e9dd7a5062a30568bf93ef347c826b03e81cc7d9cc62a4923a55877cc8"
     },
     {
       "path": "label_assessment/archive/summary.json",
-      "size_bytes": 288,
-      "sha256": "67e3111a24fea66aa1f2cddc0b5eea933234aa6ec34015ea2ca78c7e31eba9bf"
+      "size_bytes": 294,
+      "sha256": "b981e6d20386df671d0fa867c40c531f4d54f9390a32a220e22bf9767af3d069"
     },
     {
       "path": "label_assessment/classifier/syllable_logmel_patches.npy",
@@ -74,8 +54,8 @@
     },
     {
       "path": "label_assessment/pair_evidence/analysis_metadata.json",
-      "size_bytes": 15671,
-      "sha256": "f899809421271571da09d84bce22eec5c39301aa98229b4a0cc7028fff0aef7c"
+      "size_bytes": 15050,
+      "sha256": "01d431f88157d6bdf71af8be7e6a9442fda1bef242553a5b183d2bf0d3417fb8"
     },
     {
       "path": "label_assessment/pair_evidence/pairwise_similarity_evidence.csv",
@@ -173,5 +153,5 @@
       "sha256": "01f5d80f57549556a18ee65931e5e1e62b26c6fbee0ca3f271da58ca7e47a2ef"
     }
   ],
-  "label_version": "sdt-taxonomy-r2-2026-09-24"
+  "label_version": "1.0.0"
 }

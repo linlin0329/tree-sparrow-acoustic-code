@@ -1,4 +1,4 @@
-"""Replay the actual final-song clustering aid from explicit 105D/RMS inputs."""
+"""Run the song-clustering aid from matched candidate 105D/RMS inputs."""
 
 from __future__ import annotations
 
@@ -46,7 +46,7 @@ def load_inputs(input_dir: Path | None):
 
     if input_dir is None:
         check_assets(DEFAULT_ASSETS)
-        directory = DEFAULT_ASSETS / "clustering/historical_run"
+        directory = DEFAULT_ASSETS / "clustering/candidate_inputs"
         rms_path = DEFAULT_ASSETS / "clustering/rms_energy.npy"
     else:
         directory = input_dir.resolve()
@@ -62,7 +62,7 @@ def load_inputs(input_dir: Path | None):
     rms = np.load(paths["rms"], allow_pickle=False)
     names = json.loads(paths["names"].read_text())
     expected_names = json.loads(
-        (DEFAULT_ASSETS / "clustering/historical_run/feature_names.json").read_text()
+        (DEFAULT_ASSETS / "clustering/candidate_inputs/feature_names.json").read_text()
     )
     require(
         features.ndim == 2 and features.shape == (len(rows), 105),
@@ -73,7 +73,7 @@ def load_inputs(input_dir: Path | None):
         np.isfinite(features).all() and np.isfinite(rms).all() and (rms >= 0).all(),
         "Features/RMS contain invalid values",
     )
-    require(names == expected_names, "Historical feature-name/order contract differs")
+    require(names == expected_names, "Clustering feature-name/order contract differs")
     required = {
         "stable_id",
         "source_stem",

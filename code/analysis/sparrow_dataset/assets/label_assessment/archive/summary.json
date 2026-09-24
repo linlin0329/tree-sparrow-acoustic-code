@@ -3,11 +3,12 @@
   "families": 27,
   "leaf_categories": 41,
   "retained_syllables": 2556,
-  "label_version": "sdt-taxonomy-r2-2026-09-24",
-  "waveform_version": "canonical2556-boundary-r1-2026-09-17",
+  "label_version": "1.0.0",
+  "waveform_version": "1.0.0",
   "structures": {
     "single": 1153,
     "double": 768,
     "triple": 635
-  }
+  },
+  "assessment_boundary_basis": "released_integer_frames"
 }
