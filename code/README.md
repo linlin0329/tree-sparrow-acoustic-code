@@ -6,6 +6,10 @@ package version **1.0.0**. Both packages may be unpacked together as `data/` and
 all data locations can also be set explicitly. The public tables use
 `data_version=1.0.0` and `label_version=1.0.0`.
 
+Archived releases: [data](https://doi.org/10.5281/zenodo.22878786) and [code](https://doi.org/10.5281/zenodo.22879603).
+Links beginning with `../data/` refer to a local data package unpacked
+beside `code/`; use the data DOI above when browsing this repository online.
+
 | Component | Use | Entry |
 |---|---|---|
 | [Acquisition](acquisition/README.md) | Capture complete 30 s recordings, run the fixed BirdNET model, retain matching MP3s, install and roll back | Python 3.9+; component CLI and configuration |

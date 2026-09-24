@@ -12,8 +12,8 @@ inputs, commands and scientific interpretation boundaries.
 - Six manuscript figures, including 27 main-form families in Figure 5 and the
   Single 08 main-form/variant comparison in Figure 6.
 
-The software and acoustic data have reserved Zenodo identifiers
-10.5281/zenodo.22879603 and 10.5281/zenodo.22878786, respectively.
+The software is archived on Zenodo at [10.5281/zenodo.22879603](https://doi.org/10.5281/zenodo.22879603).
+The companion acoustic dataset is available at [10.5281/zenodo.22878786](https://doi.org/10.5281/zenodo.22878786).
 Field recordings are supplied separately from this code package.
 
 Original code uses MIT. Third-party code, numerical and image assets, maps
