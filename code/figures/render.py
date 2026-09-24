@@ -69,21 +69,6 @@ def export_figures(package, output, counts, selected, spectra):
     with plt.rc_context():
         save(hierarchy.main(package / "metadata"), 4, "hierarchy")
     with plt.rc_context():
-        plt.rcParams.update(
-            {
-                "font.family": "sans-serif",
-                "font.sans-serif": ["DejaVu Sans"],
-                "font.size": 7.5,
-                "pdf.fonttype": 42,
-                "svg.fonttype": "none",
-                "axes.linewidth": 0.6,
-                "axes.edgecolor": "#48565B",
-                "axes.labelcolor": structures.INK,
-                "xtick.color": structures.INK,
-                "ytick.color": structures.INK,
-                "savefig.facecolor": "white",
-            }
-        )
         save(
             structures.draw([r for r in selected if r["figure"] == "figure5"], spectra),
             5,

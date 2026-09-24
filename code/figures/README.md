@@ -1,8 +1,10 @@
 # Reproduce the six manuscript figures
 
-The figure component of code version **1.0.1** contains the drawing modules,
+The figure component of code version **1.0.2** contains the drawing modules,
 source tables, map layers, photograph and spectrogram arrays needed for six figures.
-Field audio is supplied in the separate data package.
+Use it with data package **1.0.1**, which supplies the field audio. The waveform/
+coordinate version remains 1.0.0 and the label version remains
+`sdt-taxonomy-r2-2026-09-24`.
 
 ## Run
 
@@ -26,13 +28,22 @@ produces PDF, SVG and 400 dpi PNG files.
 | 2 | Researcher photograph of the recorder and vector connection diagram |
 | 3 | Recording selection, song confirmation and annotation relationships |
 | 4 | Three structures, 27 families and 41 terminal categories |
-| 5 | Twelve main-form examples in three rows and four columns; 0–0.5 s |
+| 5 | One main-form example from each of 27 families, in three rows and nine columns; 0–0.7 s |
 | 6 | Single 08 main form and variant; 0–0.4 s |
 
+Figure 5 follows S01–S14, D01–D06 and T01–T07 from left to right across the rows
+(14 Single, 6 Double and 7 Triple examples). Each plot has a height-to-width
+ratio of 1.19877049. The 6.3 pt family labels sit below a shared 0 kHz baseline
+for each row. A shared greyscale legend and calibrated 0.4 s time scale bar sit
+below the grid. The time scale bar does not change the 0–0.7 s display window;
+spacing between examples is for layout, not natural song timing.
+
 Both spectrogram figures use 0–16 kHz and −45 to 0 dB relative to each panel's
-peak within the displayed frequency band. The 14 supplied STFT arrays are
-checked against the exact samples re-extracted from analysis WAVs (zero relative
-tolerance; absolute tolerance 1e-10 dB). Input checking also verifies the
+peak within the displayed frequency band. Figure 6 keeps the original two
+Single 08 examples and its 0–0.4 s window. The input checker re-extracts 29
+unique examples (27 for Figure 5 and 2 for Figure 6) from analysis WAVs and
+compares them with the supplied STFT arrays (zero relative tolerance; absolute
+tolerance 1e-10 dB). Input checking also verifies the
 116/581/64,811 recording relationships, 138 Raven tables and 2,556 syllables.
 It does not repeat recognition or file-level quality screening.
 
@@ -44,8 +55,8 @@ Original drawing code is MIT-licensed. Researcher data and the photograph use
 CC BY 4.0; external maps and fonts retain their own terms. See
 [licence and attribution](../THIRD_PARTY_NOTICES.md).
 
-The current Figure4 contains 14/6/7 families and 20/9/12 terminal categories
-for Single/Double/Triple. Figure5 retains its 12 original selected waveforms;
-its last panel now reads Triple family 05 (previously04). The separate
-27-example author selection does not replace the 12-panel manuscript figure
-in this release. Other figure media and STFT arrays are unchanged.
+Figure 4 retains 14/6/7 families and 20/9/12 terminal categories for
+Single/Double/Triple. Version 1.0.2 replaces the earlier 12-example Figure 5
+with the 27-example layout described above. The underlying audio and label
+metadata continue to come from data package 1.0.1; their waveform/coordinate
+and label versions are unchanged. Figure 6 remains the original pair.

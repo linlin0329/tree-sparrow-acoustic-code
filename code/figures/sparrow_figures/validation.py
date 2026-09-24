@@ -163,8 +163,46 @@ def check_tables(package):
     )
 
 
+def check_selected_examples(selected):
+    """Check the ordered 27-family plate and the unchanged Figure 6 pair."""
+    require(
+        len(selected) == len({r["stable_id"] for r in selected}) == 29,
+        "29 distinct examples",
+    )
+    expected = [
+        (structure, f"{structure}_group_{number:02d}", f"{prefix}{number:02d}")
+        for structure, prefix, count in [
+            ("single", "S", 14), ("double", "D", 6), ("triple", "T", 7)
+        ]
+        for number in range(1, count + 1)
+    ]
+    plate = selected[:27]
+    require(
+        all(row["figure"] == "figure5" for row in plate)
+        and [(row["structure"], row["family"], row["panel"]) for row in plate]
+        == expected,
+        "Figure 5 must contain all 27 families in S01-S14/D01-D06/T01-T07 order",
+    )
+    require(
+        all(row["role"] == "main" and row["leaf"] == row["family"] for row in plate),
+        "Figure 5 requires one main-form syllable per family",
+    )
+    pair = selected[27:]
+    require(
+        [(row["figure"], row["panel"], row["stable_id"], row["role"], row["leaf"])
+         for row in pair]
+        == [
+            ("figure6", "a", "596382a001f28d14599a", "main", "single_group_08"),
+            ("figure6", "b", "bfd4b15418a5db6c425a", "variant", "single_group_08_v1"),
+        ]
+        and all(row["family"] == "single_group_08" and row["structure"] == "single"
+                for row in pair),
+        "Figure 6 must retain its original main/variant pair",
+    )
+
+
 def check_spectra(package):
-    """Reconstruct 14 examples and compare to supplied STFT arrays, rtol=0."""
+    """Reconstruct 29 examples and compare to supplied STFT arrays, rtol=0."""
     import numpy as np
     import soundfile as sf
     from .stft import calculate_spectrogram
@@ -173,9 +211,11 @@ def check_spectra(package):
     metadata = {r["syllable_id"]: r for r in rows(package / "metadata/syllables.csv")}
     clips = {r["clip_id"]: r for r in rows(package / "metadata/high_quality_clips.csv")}
     spectra, parents, checks = ({}, {}, [])
+    check_selected_examples(selected)
     require(
-        len(selected) == len({r["stable_id"] for r in selected}) == 14,
-        "14 distinct examples",
+        {p.stem for p in (ASSETS / "spectra").glob("*.npz")}
+        == {r["stable_id"] for r in selected},
+        "Spectrogram assets must match the 29 selected examples exactly",
     )
     for row in selected:
         sid = row["stable_id"]
@@ -188,13 +228,20 @@ def check_spectra(package):
                     for a, b in [
                         ("family", "family_id"),
                         ("leaf", "leaf_id"),
+                        ("structure", "structure"),
                         ("clip_id", "clip_id"),
                         ("source_frame_start", "source_frame_start"),
                         ("source_frame_stop", "source_frame_stop"),
+                        ("sample_rate_hz", "sample_rate_hz"),
+                        ("reference_wav_sha256", "reference_syllable_wav_sha256"),
                     ]
                 )
             ),
             "Example identity/frame association",
+        )
+        require(
+            (row["role"] == "main") == (meta["variant_code"] == ""),
+            "Example main/variant association",
         )
         if meta["clip_id"] not in parents:
             path = safe_join(package, meta["analysis_clip_path"])
@@ -209,6 +256,10 @@ def check_spectra(package):
             "Prepared WAV frame bounds/rate/channels",
         )
         sample = samples[start:stop]
+        require(
+            abs(float(row["duration_s"]) - len(sample) / rate) < 1e-12,
+            "Example duration/frame association",
+        )
         pcm = hashlib.sha256(
             np.ascontiguousarray(sample, dtype="<f4").tobytes()
         ).hexdigest()
@@ -235,7 +286,7 @@ def check_spectra(package):
             np.array_equal(calculated["extent"], reference["extent"]),
             "STFT coordinate extent",
         )
-        limit = 0.5 if row["figure"] == "figure5" else 0.4
+        limit = 0.7 if row["figure"] == "figure5" else 0.4
         require(
             len(sample) / rate <= limit and calculated["extent"][1] <= limit,
             "Example cropped by display axis",
@@ -244,6 +295,14 @@ def check_spectra(package):
         checks.append(
             {
                 "syllable_id": sid,
+                "figure": row["figure"],
+                "panel": row["panel"],
+                "family": row["family"],
+                "clip_id": meta["clip_id"],
+                "source_frame_start": start,
+                "source_frame_stop": stop,
+                "duration_s": len(sample) / rate,
+                "display_limit_s": limit,
                 "pcm_sha256": pcm,
                 "stft_sha256": matrix_hash,
                 "recomputed_max_absolute_difference_db": difference,

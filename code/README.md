@@ -1,9 +1,9 @@
 # Eurasian tree sparrow dataset code
 
-Version **1.0.1** provides recording acquisition, data processing and figure
+Version **1.0.2** provides recording acquisition, data processing and figure
 reproduction for the Eurasian tree sparrow acoustic dataset. Use it with data
 version **1.0.1**. Both packages may be unpacked together as `data/` and `code/`;
-all data locations can also be set explicitly. The package version is 1.0.1;
+all data locations can also be set explicitly. The code package version is 1.0.2;
 unchanged waveform/coordinate `data_version` remains 1.0.0 and current
 `label_version` is `sdt-taxonomy-r2-2026-09-24`.
 
@@ -52,16 +52,30 @@ contains the recordings, annotations and validation measurements.
 
 中文说明：[README.zh-CN.md](README.zh-CN.md)。
 
+## Figure 5 update in 1.0.2
+
+Figure 5 contains one main-form example from each of the 27 families: 14 Single,
+6 Double and 7 Triple examples, arranged in three rows and nine columns over
+0–0.7 s. Figure 6 retains the original Single 08 main-form/variant pair over
+0–0.4 s. Together, these figures use 29 unique example STFT arrays. The
+[figure component](figures/README.md) describes their layout and input checks.
+
+This revision updates Figure 5 selection and display. It continues to use the
+audio, annotations and label metadata in data package 1.0.1; waveform/coordinate
+and label versions remain as stated above.
+
 ## Classification correction in 1.0.1
 
+The classification correction introduced in 1.0.1 is retained in 1.0.2.
 The former Triple family 05 (74 syllables) is now Double family 05; affected
 Double/Triple family numbers and variant parent links follow the supplied
 identity crosswalk. Current totals are Single 1,153/14 families/20 leaves,
 Double 768/6/9 and Triple 635/7/12; totals remain 2,556/27/41. No audio
 or accepted syllable boundary is changed by this classification correction.
 
-The default label assessment uses the matched R1 boundary inputs plus current
-labels and 127 within-structure family pairs. A deterministic fold-feasibility
+The default label assessment is unchanged from 1.0.1 and uses the matched R1
+boundary inputs plus current labels and 127 within-structure family pairs.
+A deterministic fold-feasibility
 policy retries consecutive seeds only when a training fold lacks a required
 class; candidate seeds are checked before fitting or scoring. In this version
 only nonnoise family repeat 4 uses 147 instead of 146. Full split assignments
