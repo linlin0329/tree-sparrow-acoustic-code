@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "asset": "gansu_boundary.geojson",
+  "purpose": "Provincial geographic context for the Gansu sampling-site map.",
+  "source": {
+    "dataset": "Natural Earth 1:10m Admin 1 – States, Provinces",
+    "version": "5.1.1",
+    "scale_denominator": 10000000,
+    "dataset_url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/",
+    "download_url": "https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_1_states_provinces.zip",
+    "archive_name": "ne_10m_admin_1_states_provinces.zip",
+    "archive_bytes": 14909524,
+    "archive_sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
+    "retrieved_on": "2026-11-26",
+    "source_members": [
+      "ne_10m_admin_1_states_provinces.shp",
+      "ne_10m_admin_1_states_provinces.shx",
+      "ne_10m_admin_1_states_provinces.dbf",
+      "ne_10m_admin_1_states_provinces.prj",
+      "ne_10m_admin_1_states_provinces.VERSION.txt"
+    ],
+    "source_feature_count": 4596,
+    "license": "Public domain",
+    "license_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+    "credit": "Made with Natural Earth."
+  },
+  "selection": {
+    "property": "iso_3166_2",
+    "value": "CN-GS",
+    "selected_feature_count": 1,
+    "source_record_index_zero_based": 112
+  },
+  "source_attributes": {
+    "name": "Gansu",
+    "name_en": "Gansu",
+    "name_zh": "甘肃省",
+    "adm1_code": "CHN-1150",
+    "iso_3166_2": "CN-GS",
+    "ne_id": 1159310923,
+    "type_en": "Province",
+    "admin": "China",
+    "geonunit": "China",
+    "iso_a2": "CN",
+    "wikidataid": "Q42392",
+    "gn_id": 1810676,
+    "postal": "GS"
+  },
+  "coordinate_reference_system": {
+    "name": "WGS 84",
+    "equivalent_geographic_crs": "EPSG:4326",
+    "geojson_axis_order": [
+      "longitude",
+      "latitude"
+    ],
+    "angular_units": "degree",
+    "source_prj_wkt": "GEOGCS[\"GCS_WGS_1984\",DATUM[\"D_WGS_1984\",SPHEROID[\"WGS_1984\",6378137.0,298.257223563]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]]"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "ring_count": 1,
+    "coordinate_count_including_closure": 2433,
+    "bbox_lonlat": [
+      92.76449832593693,
+      32.59434153913071,
+      108.70533409988877,
+      42.787061492393946
+    ],
+    "processing": "One source feature selected. All source vertices, their sequence and coordinate precision are retained; no geometric simplification or reprojection.",
+    "attributes": "Selected source identifiers and names are retained in the GeoJSON properties."
+  },
+  "output": {
+    "file": "gansu_boundary.geojson",
+    "format": "GeoJSON FeatureCollection",
+    "feature_count": 1,
+    "bytes": 231638,
+    "sha256": "509dcaca7dc06d76f215b1cf4f0cf48d3c8e280552bc9ce1bc814736da92da1e"
+  },
+  "license_notice": {
+    "file": "NaturalEarth_PUBLIC_DOMAIN.md",
+    "sha256": "cbefb63a046e0ce322fbdccd4422be59c0412c64b08abaf110c50d26b616f4ee"
+  },
+  "official_area": {
+    "value_km2": 425800,
+    "reported_value": "42.58万平方公里",
+    "definition": "Total provincial land area reported in the official water-security plan.",
+    "source_title": "甘肃省水利厅关于印发《甘肃省黄河流域水安全保障规划》的通知",
+    "issuing_authority": "甘肃省水利厅",
+    "source_host": "会宁县人民政府网站",
+    "source_url": "https://www.huining.gov.cn/xxgk/bmxxgk/swj/fdzdgknr/ghjh/art/2023/art_be973bccf1024f6f8ca16ba8849f4898.html",
+    "source_section": "一、规划背景／（一）基本情况／1.自然地理",
+    "accessed_on": "2026-11-26",
+    "basis": "Reported official land-area figure, independent of the generalized cartographic boundary; not calculated from this geometry."
+  }
+}

@@ -61,9 +61,24 @@
       "sha256": "18f21d14a7b4f8015c59f41c13b45daaafa998ad5182e6f58d65422f664d57f1"
     },
     {
+      "path": "map/NaturalEarth_PUBLIC_DOMAIN.md",
+      "bytes": 1051,
+      "sha256": "cbefb63a046e0ce322fbdccd4422be59c0412c64b08abaf110c50d26b616f4ee"
+    },
+    {
       "path": "map/author_site_review.json",
       "bytes": 430,
       "sha256": "39d1b0b6aa80ec12f072ab990b5324dc1abc1233939ef4892f5ac8040cdafee2"
+    },
+    {
+      "path": "map/gansu_boundary.geojson",
+      "bytes": 231638,
+      "sha256": "509dcaca7dc06d76f215b1cf4f0cf48d3c8e280552bc9ce1bc814736da92da1e"
+    },
+    {
+      "path": "map/gansu_source_manifest.json",
+      "bytes": 3734,
+      "sha256": "52cf10722f7004730ca8a99ebbb49439705b91d74da9fef6048e5b345163100d"
     },
     {
       "path": "map/imagery_manifest.json",
@@ -72,8 +87,8 @@
     },
     {
       "path": "map/map_config.json",
-      "bytes": 1162,
-      "sha256": "5217506b34f82bebf95fdfd676ba9c854022d81133b23c87650cb0869ae3b36a"
+      "bytes": 1776,
+      "sha256": "a3d894014ccfb93fdccc612de503caa6a5eadf1d5826205735b0d1a04450440f"
     },
     {
       "path": "map/map_data/imagery_a.tif",
@@ -97,8 +112,8 @@
     },
     {
       "path": "map/osm_source/manifest.json",
-      "bytes": 2158,
-      "sha256": "2f492deadda7a5842c4eeeff3d8d52c61ef3d0d3990cff44a0c7bf8d33e551f5"
+      "bytes": 3556,
+      "sha256": "4654996d6f19bcb61bac5e408f64d9e30242a249e1d4f4c95f040301ace4bd92"
     },
     {
       "path": "map/osm_source/osm_baiyin_map.xml.gz",

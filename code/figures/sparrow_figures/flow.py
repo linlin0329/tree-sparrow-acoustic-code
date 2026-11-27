@@ -12,6 +12,8 @@ HEIGHT_MM = WIDTH_MM * 1400 / 1792
 PANEL_BOUNDS = {"a": (50, 375), "b": (435, 945), "c": (1005, 1330)}
 CARD_X = (0, 608, 1216)
 CARD_WIDTH = 420
+CARD_X_C = (0, 440, 880, 1320)
+CARD_WIDTH_C = 316
 
 
 def axis(fig, panel):
@@ -39,9 +41,12 @@ def label(ax, x, y, value, size=5.8, color=INK, serif=False, ha="center"):
 
 
 def box(ax, node, column, top, bottom, body, subtitle=None, number=None, output=False):
-    x, y = xy(ax, CARD_X[column], bottom)
-    width, height = (CARD_WIDTH * PX, (bottom - top) * PX)
-    card(
+    is_curated_panel = ax.get_label() == "c"
+    left = CARD_X_C[column] if is_curated_panel else CARD_X[column]
+    card_width = CARD_WIDTH_C if is_curated_panel else CARD_WIDTH
+    x, y = xy(ax, left, bottom)
+    width, height = (card_width * PX, (bottom - top) * PX)
+    patch = card(
         ax,
         x,
         y,
@@ -52,20 +57,22 @@ def box(ax, node, column, top, bottom, body, subtitle=None, number=None, output=
         radius=3.2,
         shadow=True,
     )
-    center_x = CARD_X[column] + CARD_WIDTH / 2
+    patch.set_gid("node:" + node)
+    center_x = left + card_width / 2
     color = "white" if output else INK
     muted = "#C0D3D7" if output else GRAY
     if number is not None:
         label(
             ax,
             center_x,
-            top + (bottom - top) * 0.38,
+            top + (bottom - top) * (0.34 if is_curated_panel else 0.38),
             f"{number:,}",
             size=15.8,
             serif=True,
             color="white" if output else DARK,
         )
-        label(ax, center_x, top + (bottom - top) * 0.75, body, size=5.8, color=muted)
+        label(ax, center_x, top + (bottom - top) * (0.775 if is_curated_panel else 0.75),
+              body, size=5.8, color=muted)
     elif subtitle:
         label(ax, center_x, top + (bottom - top) * 0.38, body, size=6.2, color=color)
         label(
@@ -120,7 +127,7 @@ def build(counts):
     w, h = fig.get_size_inches() * 72
     a, b, c = [axis(fig, k) for k in "abc"]
     for ax, y, letter, title in [
-        (a, 80, "a", "Raw-recording release"),
+        (a, 80, "a", "Selection of MP3 recordings for release"),
         (b, 462, "b", "Song discovery and manual confirmation"),
         (c, 1034, "c", "High-quality excerpts and syllable annotations"),
     ]:
@@ -197,28 +204,16 @@ def build(counts):
         output=True,
     )
     arrow(b, "release_eligibility_to_index", [(1426, 761), (1426, 796)])
-    box(c, "core_raw", 0, 1093, 1227, "Original recordings", number=counts["core_raw"])
-    box(
-        c,
-        "analysis_clips",
-        1,
-        1093,
-        1227,
-        "Analysis WAV excerpts",
-        number=counts["clips"],
-    )
-    box(
-        c,
-        "syllables",
-        2,
-        1093,
-        1227,
-        "Labelled syllables",
-        number=counts["core_syllables"],
-        output=True,
-    )
-    arrow(c, "source_to_excerpts", [(434, 1159), (598, 1159)])
-    arrow(c, "excerpts_to_syllables", [(1042, 1159), (1206, 1159)])
+    box(c, "song_index_c", 0, 1093, 1228, "Confirmed song\nrecordings (from b)",
+        number=counts["songs"])
+    box(c, "core_raw", 1, 1093, 1228, "Source MP3\nrecordings", number=counts["core_raw"])
+    box(c, "analysis_clips", 2, 1093, 1228, "Analysis WAV\nexcerpts", number=counts["clips"])
+    box(c, "syllables", 3, 1093, 1228, "Labelled\nsyllables",
+        number=counts["core_syllables"], output=True)
+    arrow(c, "manual_excerpt_selection", [(330, 1160.5), (430, 1160.5)])
+    label(c, 378, 1105, "Manual\nexcerpt\nselection", size=5.3, color=GRAY)
+    arrow(c, "source_to_excerpts", [(770, 1160.5), (870, 1160.5)])
+    arrow(c, "excerpts_to_syllables", [(1210, 1160.5), (1310, 1160.5)])
     footer = f"{counts['raven_tables']} matching Raven tables  ·  {counts['families']} families  ·  {counts['leaves']} terminal categories"
     footer_artist = label(c, 818, 1282, footer, size=5.3, color=GRAY)
     fig.canvas.draw()
@@ -240,13 +235,13 @@ def build(counts):
     for y in [410, 982]:
         decor.plot([78 * PX, 1714 * PX], [h - y * PX] * 2, lw=0.45, color=EDGE)
     groups = [
-        ["archive", "initial_listening", "retrieval", "core_raw"],
-        ["candidates", "initial_songs", "manual_confirmation", "analysis_clips"],
-        ["released_raw", "merge_eligibility", "song_index", "syllables"],
+        ["archive", "initial_listening", "retrieval"],
+        ["candidates", "initial_songs", "manual_confirmation"],
+        ["released_raw", "merge_eligibility", "song_index"],
     ]
     lookup = {n["id"]: n for n in GEOMETRY["nodes"]}
-    if not len(lookup) == 12:
-        raise ValueError("Figure input requirement failed: len(lookup) == 12")
+    if not len(lookup) == 13:
+        raise ValueError("Figure input requirement failed: len(lookup) == 13")
     for col, ids in enumerate(groups):
         if not all(
             (
@@ -258,6 +253,12 @@ def build(counts):
             raise ValueError(
                 "Figure input requirement failed: all((lookup[i]['rect_pt'][0] == CARD_X[col] * PX and lookup[i]['rect_pt'][2] == CARD_WIDTH * PX for i in ids))"
             )
+    curated_ids = ["song_index_c", "core_raw", "analysis_clips", "syllables"]
+    for column, node in enumerate(curated_ids):
+        assert lookup[node]["rect_pt"][0] == CARD_X_C[column] * PX
+        assert lookup[node]["rect_pt"][2] == CARD_WIDTH_C * PX
+    assert [lookup[node]["number"] for node in curated_ids] == [
+        counts["songs"], counts["core_raw"], counts["clips"], counts["core_syllables"]]
     if not "excluded" not in lookup:
         raise ValueError("Figure input requirement failed: 'excluded' not in lookup")
     if not "quality_exclusion" not in {e["id"] for e in GEOMETRY["arrows"]}:
@@ -280,6 +281,12 @@ def build(counts):
             "x_positions_pt": [x * PX for x in CARD_X],
             "shared_node_width_pt": CARD_WIDTH * PX,
             "equal_column_gaps_pt": (608 - CARD_WIDTH) * PX,
+        },
+        curated_panel_alignment={
+            "nodes": curated_ids, "x_positions_pt": [x * PX for x in CARD_X_C],
+            "shared_node_width_pt": CARD_WIDTH_C * PX,
+            "equal_column_gaps_pt": (440 - CARD_WIDTH_C) * PX,
+            "source_panel": "b", "selection_step": "Manual excerpt selection",
         },
         exclusion_annotation={
             "text": "33 excluded",

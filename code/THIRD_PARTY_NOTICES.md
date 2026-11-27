@@ -13,6 +13,7 @@ licences on the third-party/derived materials listed below.
 | Figure source tables, spectrogram arrays and equipment photograph | Researcher materials: [CC BY 4.0](licenses/CC-BY-4.0.txt) |
 | Sentinel-2 image crops | Contains modified Copernicus Sentinel data (2023), from the 14 May 2023 scenes listed in `figures/assets/map/imagery_manifest.json`; [Sentinel data terms](https://sentinels.copernicus.eu/documents/247904/690755/Sentinel_Data_Legal_Notice) |
 | OpenStreetMap river vectors and source snapshots | © OpenStreetMap contributors, ODbL-1.0; [copyright and licence](https://www.openstreetmap.org/copyright); source snapshots and processed GeoPackage are supplied in `figures/assets/map/` |
+| Natural Earth provincial boundary | Public domain; the extracted Gansu feature, version 5.1.1, and its provenance are supplied in `figures/assets/map/gansu_boundary.geojson` and `gansu_source_manifest.json`; see [Natural Earth notice](figures/assets/map/NaturalEarth_PUBLIC_DOMAIN.md) and [official terms](https://www.naturalearthdata.com/about/terms-of-use/) |
 | Lato and Cormorant Garamond fonts | SIL Open Font License; full texts and source/derivation records are in `figures/assets/fonts/` |
 
 Required third-party author names, copyright notices and cited references are

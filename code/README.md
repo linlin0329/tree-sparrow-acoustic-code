@@ -1,12 +1,12 @@
 # Eurasian tree sparrow dataset code
 
-Version **1.0.0** provides recording acquisition, data processing and figure
+Version **1.0.1** provides recording acquisition, data processing and figure
 reproduction for the Eurasian tree sparrow acoustic dataset. Use it with data
-package version **1.0.0**. Both packages may be unpacked together as `data/` and `code/`;
+package version **1.0.1**. Both packages may be unpacked together as `data/` and `code/`;
 all data locations can also be set explicitly. The public tables use
 `data_version=1.0.0` and `label_version=1.0.0`.
 
-Archived releases: [data](https://doi.org/10.5281/zenodo.22878786) and [code](https://doi.org/10.5281/zenodo.22879603).
+Archived releases: [data](https://doi.org/10.5281/zenodo.24574395) and [code](https://doi.org/10.5281/zenodo.24574396).
 Links beginning with `../data/` refer to a local data package unpacked
 beside `code/`; use the data DOI above when browsing this repository online.
 
@@ -30,7 +30,7 @@ sparrow-data assessment inspect
 
 The 138 analysis WAVs support exact integer-frame extraction of 2,556 syllables.
 They originate from 116 recordings within the 581-record confirmed-song index
-and the 64,811-record raw collection. Exact extraction coordinates in original
+and the 64,811-record archived MP3 collection. Exact extraction coordinates in source
 MP3s are not supplied; use the analysis WAVs and their metadata.
 
 Acquisition, analysis and GIS/figure environments are separate. Each component
@@ -74,3 +74,11 @@ and reasons are exported by the assessment. The policy does not select
 validation results by their scores. Details and interpretation limits are in
 the [analysis component](analysis/README.md) and the
 [data assessment guide](../data/validation/label_assessment/README.md).
+
+## Maintenance release 1.0.1
+
+This release clarifies archived-MP3 terminology and input access, adds the Gansu
+locator source and licence, and updates Figures 1, 3 and 6. Waveforms, annotation
+coordinates, labels, analysis inputs and assessment results are unchanged. The
+scientific data and label identifiers remain 1.0.0; the unchanged analysis
+component retains its implementation version.

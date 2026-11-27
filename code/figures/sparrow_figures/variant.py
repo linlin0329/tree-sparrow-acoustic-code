@@ -94,6 +94,13 @@ def spectrogram_figure(atlas, spectra, panels, size, name):
             ax.set_ylabel("Frequency (kHz)", fontsize=7, labelpad=2)
         ax.set_title(label, loc="left", fontsize=6.5, pad=12)
         letter(ax, "abc"[i])
+        if name == "variant" and i == 1:
+            if row.get("stable_id") != "bfd4b15418a5db6c425a":
+                raise ValueError("The terminal-sound pointer requires the selected S08 variant.")
+            # Visual pointer only; its endpoints do not define acoustic boundaries.
+            ax.annotate("", xy=(0.178, 5.4), xytext=(0.266, 9.2),
+                        arrowprops={"arrowstyle": "-|>", "lw": 0.7, "mutation_scale": 7,
+                                    "shrinkA": 0, "shrinkB": 0, "color": "#243B45"})
         axes.append(ax)
     cax = fig.add_axes((1 - right_pad + 0.015, 0.17, 0.014, 0.68))
     from matplotlib.colors import Normalize

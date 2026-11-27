@@ -22,8 +22,11 @@ compatible NumPy, librosa, SciPy and TFLite environment. Reference versions are
 NumPy 1.19.5, librosa 0.9.2, SciPy 1.10.1 and tflite-runtime 2.6.0 with Python 3.9.
 
 Only BirdNET-Pi commit `6334367ac0257514967025487026d6fe6b351afe` and the fixed
-`BirdNET_6K_GLOBAL_MODEL` are supported. Obtain its model weights separately
-under the applicable terms. The matching Chinese label table is included as
+`BirdNET_6K_GLOBAL_MODEL` are supported. Download the required
+[BirdNET_6K_GLOBAL_MODEL.tflite](https://raw.githubusercontent.com/mcguirepr89/BirdNET-Pi/6334367ac0257514967025487026d6fe6b351afe/model/BirdNET_6K_GLOBAL_MODEL.tflite)
+from that revision under the applicable model terms. The expected SHA-256 is
+`f073d0aa626b4a5bb0705982d06de74c562f041ba76ebada18bc3e29126f6755`.
+The matching Chinese label table is included as
 `vendor/labels.txt`. Source, model and label SHA-256 values are checked by
 `model_bridge.py`; other versions are rejected. `upstream_contract.json`
 identifies the required upstream checkout files. The bundled source is never

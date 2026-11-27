@@ -64,7 +64,7 @@ def export_figures(package, output, counts, selected, spectra):
     with plt.rc_context():
         style.setup()
         figure = flow.build(counts)
-        require(len(flow.GEOMETRY["nodes"]) == 12, "Flow geometry")
+        require(len(flow.GEOMETRY["nodes"]) == 13, "Flow geometry")
         save(figure, 3, "flow")
     with plt.rc_context():
         save(hierarchy.main(package / "metadata"), 4, "hierarchy")

@@ -15,7 +15,7 @@
 
 维护层使用 Python 3.9+；采集需要 Linux ALSA `arecord`，编码需要带 `libmp3lame` 的 FFmpeg/ffprobe。推理需要相容的 NumPy、librosa、SciPy 和 TFLite 环境；参考组合为 Python 3.9、NumPy 1.19.5、librosa 0.9.2、SciPy 1.10.1、tflite-runtime 2.6.0。
 
-只支持 BirdNET-Pi 提交 `6334367ac0257514967025487026d6fe6b351afe` 和固定 `BirdNET_6K_GLOBAL_MODEL`。模型权重需按适用许可另行获取；相应中文标签已附于 `vendor/labels.txt`。`model_bridge.py` 校验源文件、模型和标签 SHA-256，不接受其他版本；`upstream_contract.json` 列出所需上游文件。适配器仅加载八个允许的模型函数，不启动所附源文件中的服务器。
+只支持 BirdNET-Pi 提交 `6334367ac0257514967025487026d6fe6b351afe` 和固定 `BirdNET_6K_GLOBAL_MODEL`。模型权重可按适用许可从[固定版本](https://raw.githubusercontent.com/mcguirepr89/BirdNET-Pi/6334367ac0257514967025487026d6fe6b351afe/model/BirdNET_6K_GLOBAL_MODEL.tflite)获取，预期 SHA-256 为 `f073d0aa626b4a5bb0705982d06de74c562f041ba76ebada18bc3e29126f6755`。相应中文标签已附于 `vendor/labels.txt`。`model_bridge.py` 校验源文件、模型和标签 SHA-256，不接受其他版本；`upstream_contract.json` 列出所需上游文件。适配器仅加载八个允许的模型函数，不启动所附源文件中的服务器。
 
 将 `config.example.json` 复制为私有配置文件，填写以下内容：
 

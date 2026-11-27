@@ -1,8 +1,8 @@
 {
-  "package_version": "1.0.0",
+  "package_version": "1.0.1",
   "data_version": "1.0.0",
   "label_version": "1.0.0",
   "assessment_boundary_version": "1.0.0",
-  "compatible_data_package_version": "1.0.0",
+  "compatible_data_package_version": "1.0.1",
   "assessment_boundary_basis": "released_integer_frames"
 }

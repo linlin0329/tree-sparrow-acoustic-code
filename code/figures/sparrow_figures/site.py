@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .resources import ASSETS
+import hashlib
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,7 +13,7 @@ from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
 import geopandas as gpd
 from pyproj import Transformer
 import rasterio
-from shapely.geometry import box
+from shapely.geometry import box, shape
 
 HERE = ASSETS / "map"
 DATA = HERE / "map_data"
@@ -75,13 +76,13 @@ def north(ax, bounds):
     lon, lat = INVERSE.transform(x, y)
     xn, yn = FORWARD.transform(lon, lat + 0.02)
     dx, dy = (xn - x, yn - y)
-    length = 0.08 * (t - b)
+    length = 0.11 * (t - b)
     factor = length / np.hypot(dx, dy)
     ax.annotate(
         "",
         xy=(x + dx * factor, y + dy * factor),
         xytext=(x, y),
-        arrowprops={"arrowstyle": "-|>", "color": "#263A43", "lw": 0.8},
+        arrowprops={"arrowstyle": "-|>", "color": "#263A43", "lw": 1.0},
         zorder=12,
     )
     ax.annotate(
@@ -91,11 +92,100 @@ def north(ax, bounds):
         textcoords="offset points",
         ha="center",
         va="bottom",
-        fontsize=7.2,
+        fontsize=9.0,
         fontweight="bold",
         path_effects=[pe.withStroke(linewidth=2, foreground="white")],
         zorder=13,
     )
+
+
+def province_locator(fig, regional_ax, regional_bounds, sites):
+    """Show provincial context; the small box denotes the regional map extent."""
+    cfg = CFG["province_locator"]
+    source = json.loads((HERE / cfg["source_manifest"]).read_text())
+    geometry_path = HERE / cfg["geometry"]
+    payload = geometry_path.read_bytes()
+    if hashlib.sha256(payload).hexdigest() != source["output"]["sha256"]:
+        raise ValueError("Provincial boundary hash does not match its source manifest")
+    features = json.loads(payload)["features"]
+    if len(features) != 1 or features[0]["properties"]["iso_3166_2"] != "CN-GS":
+        raise ValueError("The locator requires the single Gansu province feature")
+    province = shape(features[0]["geometry"])
+    if province.is_empty or not province.is_valid:
+        raise ValueError("Invalid provincial boundary geometry")
+
+    # Fractions refer to the whole figure; keep the inherited map axes unchanged.
+    fig.canvas.draw()
+    outer = regional_ax.get_position()
+    dx, dy = cfg["frame_offset_fraction"]
+    width, height = cfg["frame_size_fraction"]
+    left, bottom = outer.x0 + dx, outer.y1 - dy - height
+    frame = fig.add_axes([left, bottom, width, height], label="province_frame", zorder=30)
+    frame.set_facecolor("white")
+    frame.set_xticks([])
+    frame.set_yticks([])
+    for spine in frame.spines.values():
+        spine.set_color("#A7AFB2")
+        spine.set_linewidth(0.55)
+    # Aligned outer edges use the regional-map border; inner dividers remain light.
+    for edge, offset in (("left", dx), ("top", dy)):
+        if np.isclose(offset, 0.0):
+            frame.spines[edge].set_color(regional_ax.spines["geo"].get_edgecolor())
+            frame.spines[edge].set_linewidth(regional_ax.spines["geo"].get_linewidth())
+    frame.text(0.035, 0.95, "Gansu Province", ha="left", va="top",
+               fontsize=8.2, fontweight="bold", color="#263A43")
+    area = source["official_area"]["value_km2"]
+    frame.text(0.965, 0.94, f"≈{area:,.0f} km²", ha="right", va="top",
+               fontsize=7.4, color="#46545C")
+    frame.text(0.035, 0.045, "Box: regional map extent", ha="left", va="bottom",
+               fontsize=7.0, color="#46545C")
+
+    width_pt, height_pt = fig.get_size_inches() * 72
+    projection = cfg["projection"]
+    locator_projection = ccrs.LambertConformal(
+        central_longitude=projection["central_longitude"],
+        central_latitude=projection["central_latitude"],
+        standard_parallels=tuple(projection["standard_parallels"]),
+    )
+    locator = fig.add_axes(
+        [left + 4 / width_pt, bottom + 15 / height_pt,
+         width - 8 / width_pt, height - 32 / height_pt],
+        projection=locator_projection, label="province_map", zorder=31,
+    )
+    locator.set_facecolor("white")
+    locator.spines["geo"].set_visible(False)
+    minx, miny, maxx, maxy = province.bounds
+    pad = cfg["extent_padding_degrees"]
+    locator.set_extent([minx - pad, maxx + pad, miny - pad, maxy + pad], crs=GEO)
+    locator.add_geometries([province], crs=GEO, facecolor="#E5E8E7",
+                           edgecolor="#56666D", linewidth=0.6, zorder=2)
+    locator.add_geometries([box(*regional_bounds)], crs=PROJ,
+                           facecolor="#F6D4B6", edgecolor="#A8622C",
+                           linewidth=0.85, zorder=3)
+    fig.canvas.draw()
+
+    # The context inset may cover background imagery, but never sampling marks.
+    frame_display = frame.get_window_extent(fig.canvas.get_renderer())
+    for point in sites.geometry:
+        x, y = regional_ax.transData.transform((point.x, point.y))
+        if frame_display.contains(x, y):
+            raise ValueError("The provincial locator obscures a village reference point")
+    for title, ax in [("b", fig.axes[1]), ("c", fig.axes[2])]:
+        if frame_display.overlaps(ax.get_window_extent(fig.canvas.get_renderer())):
+            raise ValueError(f"The provincial locator overlaps panel {title}")
+    fig._province_locator_metadata = {
+        "feature_id": features[0].get("id"),
+        "boundary_sha256": source["output"]["sha256"],
+        "official_area_km2": area,
+        "official_area_source": source["official_area"]["source_url"],
+        "extent_box_role": cfg["box_role"],
+        "regional_extent_projected": list(regional_bounds),
+        "regional_extent_crs": CRS,
+        "frame_bbox_figure": [left, bottom, width, height],
+        "projection": projection,
+        "sampling_marks_obscured": 0,
+    }
+    return frame, locator
 
 
 def main():
@@ -127,6 +217,7 @@ def main():
     }
     for panel, cfg in CFG["panels"].items():
         ax = fig.add_axes(CFG["figure"]["axes"][panel], projection=PROJ)
+        ax.set_label(panel)
         axes.append(ax)
         bounds = IMAGERY["outputs"][panel]["bounds_projected"]
         bounds_by_panel[panel] = bounds
@@ -180,13 +271,12 @@ def main():
         gl.yformatter = LatitudeFormatter()
         gl.xpadding = 3
         gl.ypadding = 3
-        ax.set_title(
-            f"{panel}   {cfg['title']}",
-            loc="left",
-            fontsize=9,
-            fontweight="bold",
-            pad=8,
-        )
+        ax.annotate(panel, xy=(0, 1), xycoords="axes fraction",
+                    xytext=(0, 8), textcoords="offset points",
+                    ha="left", va="baseline", fontsize=9, fontweight="bold")
+        ax.annotate(cfg["title"], xy=(0, 1), xycoords="axes fraction",
+                    xytext=(16, 8), textcoords="offset points",
+                    ha="left", va="baseline", fontsize=9, fontweight="bold")
         subset = (
             reported
             if panel == "a"
@@ -260,11 +350,12 @@ def main():
                 zorder=6,
             )
         scale_bar(ax, cfg["scale_bar_m"], bounds)
-        north(ax, bounds)
+        if panel == "a":
+            north(ax, bounds)
     fig.text(
         0.065,
         0.061,
-        "Contains modified Copernicus Sentinel data 2023. Image acquired 14 May 2023.",
+        "Contains modified Copernicus Sentinel data 2023. Image acquired 14 May 2023. Provincial boundary: Natural Earth.",
         fontsize=6.2,
         color="#46545C",
     )
@@ -275,5 +366,6 @@ def main():
         fontsize=6.2,
         color="#46545C",
     )
+    province_locator(fig, axes[0], bounds_by_panel["a"], reported)
     fig.canvas.draw()
     return fig

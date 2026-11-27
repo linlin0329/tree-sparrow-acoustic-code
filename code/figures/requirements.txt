@@ -1,7 +1,4 @@
-# Figure reproduction environment for code 1.0.2 with data package 1.0.1.
-# Figure 5 uses 27 examples (0–0.7 s); Figure 6 retains its original pair (0–0.4 s).
-# All 29 example STFT arrays are bundled; the entry verifies their original hashes
-# and tightly bounds recomputation differences. Dependency pins are unchanged from 1.0.1.
+# Dependencies for reproducing the six manuscript figures with Python 3.13.
 numpy==2.5.3
 scipy==1.18.1
 matplotlib==3.11.2
